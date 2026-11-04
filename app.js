@@ -125,31 +125,40 @@
       { who: '@kazumi___', tt: 'https://www.tiktok.com/@kazumi___/video/7583683667055234322', ig: 'DSPiGHTk9gU' }
     ]
   };
-  var chev = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
   function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  // 왼쪽 = 인정 예시, 오른쪽 = 미인정 예시 버튼. 누르면 아래 뷰어에 TikTok · Instagram 을 나란히 띄운다.
   document.querySelectorAll('[data-examples]').forEach(function (box) {
     var kind = box.getAttribute('data-examples');
     var title = kind === 'ok' ? T.okTitle : T.ngTitle;
     box.innerHTML = EX[kind].map(function (x, i) {
-      var id = x.tt.split('/video/')[1];
-      return '<details class="acc ' + kind + '">' +
-        '<summary><span class="n">' + (i + 1) + '</span>' + title + ' ' + (i + 1) +
-        '<span class="who">' + esc(x.who) + '</span>' + chev + '</summary>' +
-        '<div class="acc-body"><div class="ex-grid">' +
-          '<div><div class="ex-plat">TikTok</div><div class="ex-frame tt"><iframe data-src="https://www.tiktok.com/embed/v2/' + id + '" title="TikTok ' + esc(x.who) + '" allowfullscreen></iframe></div>' +
-          '<a class="ex-link" href="' + x.tt + '" target="_blank" rel="noopener">' + T.open + '</a></div>' +
-          '<div><div class="ex-plat">Instagram</div><div class="ex-frame ig"><iframe data-src="https://www.instagram.com/reel/' + x.ig + '/embed" title="Instagram ' + esc(x.who) + '" allowfullscreen></iframe></div>' +
-          '<a class="ex-link" href="https://www.instagram.com/reels/' + x.ig + '/" target="_blank" rel="noopener">' + T.open + '</a></div>' +
-        '</div></div></details>';
+      return '<button type="button" class="ex-btn ' + kind + '" data-kind="' + kind + '" data-i="' + i + '" aria-pressed="false">' +
+        '<span class="n">' + (i + 1) + '</span><span class="tx">' + title + ' ' + (i + 1) +
+        '<small>' + esc(x.who) + '</small></span><span class="go">▶</span></button>';
     }).join('');
   });
-  document.addEventListener('toggle', function (e) {
-    var d = e.target;
-    if (!d.classList || !d.classList.contains('acc') || !d.open) return;
-    d.querySelectorAll('iframe[data-src]').forEach(function (f) {
-      f.src = f.getAttribute('data-src'); f.removeAttribute('data-src');
-    });
-  }, true);
+  var viewer = document.querySelector('[data-viewer]');
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('.ex-btn');
+    if (!b || !viewer) return;
+    var kind = b.getAttribute('data-kind'), i = +b.getAttribute('data-i'), x = EX[kind][i];
+    var wasOn = b.getAttribute('aria-pressed') === 'true';
+    document.querySelectorAll('.ex-btn').forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+    if (wasOn) { viewer.hidden = true; viewer.innerHTML = ''; return; }
+    b.setAttribute('aria-pressed', 'true');
+    var id = x.tt.split('/video/')[1];
+    var title = (kind === 'ok' ? T.okTitle : T.ngTitle) + ' ' + (i + 1);
+    viewer.className = 'ex-viewer ' + kind;
+    viewer.innerHTML =
+      '<div class="ex-viewer-head"><span class="badge ' + kind + '">' + (kind === 'ok' ? '✓ OK' : '✕ NG') + '</span>' + title + ' <small>' + esc(x.who) + '</small></div>' +
+      '<div class="ex-pair">' +
+        '<div><div class="ex-plat">TikTok</div><div class="ex-frame tt"><iframe src="https://www.tiktok.com/player/v1/' + id + '?rel=0" title="TikTok ' + esc(x.who) + '" allow="fullscreen; encrypted-media" allowfullscreen></iframe></div>' +
+        '<a class="ex-link" href="' + x.tt + '" target="_blank" rel="noopener">' + T.open + '</a></div>' +
+        '<div><div class="ex-plat">Instagram</div><div class="ex-frame ig"><iframe src="https://www.instagram.com/reel/' + x.ig + '/embed" title="Instagram ' + esc(x.who) + '" allowfullscreen></iframe></div>' +
+        '<a class="ex-link" href="https://www.instagram.com/reels/' + x.ig + '/" target="_blank" rel="noopener">' + T.open + '</a></div>' +
+      '</div>';
+    viewer.hidden = false;
+    viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 
   /* ---------- floating nav: active section ---------- */
   var links = document.querySelectorAll('.fnav a');

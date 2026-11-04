@@ -438,3 +438,32 @@ footer { text-align: center; color: var(--muted); font-size: 11px; letter-spacin
 /* brand logo */
 .brand-logo { display: block; height: 24px; width: auto; }
 .gate .brand-logo { margin: 0 auto 12px; height: 28px; }
+
+/* mirroring examples: OK left / NG right, viewer below */
+.ex-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+.ex-col { border-radius: 16px; padding: 12px 10px; }
+.ex-col.ok { background: var(--ok-soft); }
+.ex-col.ng { background: var(--ng-soft); }
+.ex-col-head { display: flex; align-items: center; gap: 6px; font-weight: 900; font-size: 14px; margin-bottom: 8px; flex-wrap: wrap; }
+.ex-btn { appearance: none; border: 1.5px solid transparent; cursor: pointer; font: inherit; text-align: left; width: 100%; display: flex; align-items: center; gap: 8px; background: #fff; border-radius: 12px; padding: 10px; margin-top: 6px; color: var(--ink); }
+.ex-btn .n { flex: none; width: 22px; height: 22px; border-radius: 50%; color: #fff; font-size: 12px; font-weight: 900; display: grid; place-items: center; }
+.ex-btn.ok .n { background: var(--ok); }
+.ex-btn.ng .n { background: var(--ng); }
+.ex-btn .tx { flex: 1; min-width: 0; font-weight: 700; font-size: 13px; line-height: 1.35; }
+.ex-btn .tx small { display: block; font-weight: 400; color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ex-btn .go { flex: none; font-size: 10px; color: var(--muted); }
+.ex-btn.ok[aria-pressed="true"] { border-color: var(--ok); }
+.ex-btn.ng[aria-pressed="true"] { border-color: var(--ng); }
+.ex-btn[aria-pressed="true"] .go { color: inherit; }
+.ex-viewer { margin-top: 14px; border-radius: 16px; padding: 14px; border: 2px solid var(--line); scroll-margin-top: 16px; }
+.ex-viewer[hidden] { display: none; }
+.ex-viewer.ok { border-color: var(--ok); background: #f7fcf9; }
+.ex-viewer.ng { border-color: var(--ng); background: #fffafa; }
+.ex-viewer-head { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 15px; margin-bottom: 10px; flex-wrap: wrap; }
+.ex-viewer-head small { font-weight: 400; color: var(--muted); font-size: 12px; }
+.ex-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ex-pair .ex-frame { position: relative; aspect-ratio: 9 / 16; }
+.ex-pair .ex-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ex-pair .ex-frame.ig { aspect-ratio: auto; height: 520px; }
+.ex-pair .ex-frame.ig iframe { position: static; height: 520px; }
+@media (max-width: 420px) { .ex-pair .ex-frame.ig, .ex-pair .ex-frame.ig iframe { height: 420px; } }
