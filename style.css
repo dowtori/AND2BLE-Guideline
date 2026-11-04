@@ -70,6 +70,15 @@ b, strong { font-weight: 700; }
 .official-links svg { width: 18px; height: 18px; flex: none; }
 .callout a { color: inherit; font-weight: 700; }
 
+/* intro */
+.intro { padding-top: 0; overflow: hidden; }
+.intro-photo { display: block; width: calc(100% + 40px); max-width: none; margin: 0 -20px 20px; height: auto; aspect-ratio: 1200 / 630; object-fit: cover; }
+.intro h2 { margin-bottom: 12px; }
+.intro-kana { font-size: 14px; font-weight: 700; color: var(--muted); }
+.intro p { color: var(--ink-2); font-size: 15px; }
+.intro-cta { background: var(--accent-soft); border-radius: 14px; padding: 14px 16px; color: var(--ink) !important; }
+.intro-cta b { color: var(--accent-dark); }
+
 /* ---------- summary card ---------- */
 .summary { background: var(--ink); color: #fff; border-radius: var(--radius); padding: 22px 20px; margin-bottom: 16px; }
 .summary dl { margin: 0; }
