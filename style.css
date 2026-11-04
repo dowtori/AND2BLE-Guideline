@@ -590,3 +590,9 @@ footer { text-align: center; color: var(--muted); font-size: 11px; letter-spacin
 .must-ic { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--ng-soft); color: var(--ng); margin-bottom: 4px; }
 .must-ic svg { width: 26px; height: 26px; }
 @media (max-width: 480px) { .must-ic { width: 42px; height: 42px; } .must-ic svg { width: 22px; height: 22px; } }
+
+/* banner without icons: bigger text emphasis */
+.must-item { padding: 16px 8px 12px; gap: 6px; }
+.must-item b { font-size: 21px; letter-spacing: -.01em; }
+.must-tag { font-size: 13px; padding: 3px 12px; }
+@media (max-width: 480px) { .must-item b { font-size: 18px; } }
