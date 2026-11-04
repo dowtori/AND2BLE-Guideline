@@ -1,6 +1,6 @@
 (function () {
   // Google Apps Script 웹앱 URL (google-apps-script.gs 를 배포한 뒤 발급되는 ".../exec" 링크)
-  var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwHtUOkGWfX5LAJCR7dnEDfWgas11DRYZHLgvYcZM0pqCb0Xheyy6ed1sbHClPP3ef8/exec';
+  var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTqppyZh_NuLk32pw5cOcv91kg2yIs7IPtyFHzWznhjDYTYBXPn5F-ICmA_A6OATIj/exec';
 
   var form = document.getElementById('applyForm');
   if (!form) return;
