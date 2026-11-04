@@ -324,7 +324,7 @@ details.acc[open] summary { border-bottom: 1px solid var(--line); background: #f
 .confirm dd { margin: 0; font-weight: 700; word-break: break-all; }
 .confirm-title { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
 
-.agree { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; background: #fff; border: 1.5px solid #d9d1c5; border-radius: 14px; padding: 14px; }
+.field > label.agree, .agree { display: flex; font-weight: 400; margin-bottom: 0; position: relative; gap: 12px; align-items: flex-start; cursor: pointer; background: #fff; border: 1.5px solid #d9d1c5; border-radius: 14px; padding: 14px; }
 .agree input { position: absolute; opacity: 0; pointer-events: none; }
 .agree .box { flex: none; width: 24px; height: 24px; border-radius: 8px; border: 2px solid #d4ccc0; display: grid; place-items: center; }
 .agree .box::after { content: "✓"; color: #fff; font-weight: 900; font-size: 14px; opacity: 0; }
