@@ -235,7 +235,6 @@
       form.hidden = true;
       document.querySelector('.stepper').hidden = true;
       var done = document.querySelector('.apply-done');
-      done.querySelector('[data-done-email]').textContent = payload.email;
       done.hidden = false;
       document.getElementById('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }).catch(function () {
