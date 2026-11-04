@@ -434,3 +434,7 @@ footer { text-align: center; color: var(--muted); font-size: 11px; letter-spacin
 
 /* to-top */
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+/* brand logo */
+.brand-logo { display: block; height: 24px; width: auto; }
+.gate .brand-logo { margin: 0 auto 12px; height: 28px; }
