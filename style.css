@@ -299,6 +299,7 @@ details.acc[open] summary { border-bottom: 1px solid var(--line); background: #f
 .stepper li { text-align: center; font-size: 12px; font-weight: 700; color: var(--muted); padding-top: 10px; border-top: 4px solid var(--line); }
 .stepper li.on { color: var(--accent-dark); border-color: var(--accent); }
 .stepper li.done { color: var(--ink-2); border-color: #ffb3cc; }
+.stepper[hidden] { display: none; }
 .fstep { border: 0; margin: 0; padding: 0; min-width: 0; }
 .fstep[hidden] { display: none; }
 .field { margin-bottom: 18px; }
