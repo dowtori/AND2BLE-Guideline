@@ -15,7 +15,6 @@
 
   <div class="topbar">
     <a class="brand" href="index.html" style="text-decoration:none">‹ SIRIAI</a>
-    <nav class="lang" aria-label="言語"><a class="on" href="ja.html">日本語</a><a href="ko.html">한국어</a></nav>
   </div>
 
   <!-- ===== 概要 ===== -->
@@ -67,8 +66,17 @@
         <span class="t">TikTok + Instagram 同時参加<small>ミラーリング（両方に投稿）</small></span>
         <span class="v"><b>¥12,000</b><small>相当</small></span>
       </div>
+      <span class="red-note">※ 背景・構図が目で見てはっきり区別できない場合、1つの投稿のみ認定されることがあります</span>
     </div>
-  </section>
+    <div class="gift">
+      <div class="gift-title">🎁 リワードは<b>ギフトカード</b>でお受け取りいただけます</div>
+      <div class="gift-grid">
+        <figure><img src="images/gift-apple.png" alt="Apple ギフトカード" loading="lazy"><figcaption>Apple</figcaption></figure>
+        <figure><img src="images/gift-googleplay.png" alt="Google Play ギフトカード" loading="lazy"><figcaption>Google Play</figcaption></figure>
+        <figure><img src="images/gift-rakuten.png" alt="楽天ギフトカード" loading="lazy"><figcaption>楽天</figcaption></figure>
+      </div>
+      <p class="hint">応募フォームで、受け取りたいギフトカードを1つ選んでください。<br><span class="no-amazon">✕ Amazon ギフトカードは対象外です</span></p>
+    </div>  </section>
 
   <!-- ===== 振付 ===== -->
   <section class="card" id="dance">
@@ -147,6 +155,10 @@
   <section class="card" id="mirror">
     <h2><span class="num">4</span>ミラーリングの注意</h2>
     <p class="lead">TikTok と Instagram の<b>両方に投稿（ミラーリング）してもOK</b>です。ただし、2つの動画は<span class="em">背景か構図を完全に変えて</span>ください。</p>
+    <div class="alert-red">
+      <b>⚠ 目で見てはっきり区別できないと、1つの投稿しか認定されない場合があります</b>
+      下の「認定されない例」のように、背景や構図がはっきり違わない場合は、TikTok と Instagram の両方に投稿しても<strong>1つの投稿のみ認定</strong>されることがあります。<br>2つの動画は<strong>見ただけで違いがわかる</strong>ように撮影してください。
+    </div>
 
     <div class="compare">
       <div class="ok">
@@ -178,7 +190,7 @@
     <h2>応募フォーム</h2>
     <p class="lead">3ステップ・約1分で完了します。<b>応募後に投稿してください。</b></p>
 
-    <ol class="stepper"><li class="on">1. あなたの情報</li><li>2. 参加方法</li><li>3. 投稿予定日</li></ol>
+    <ol class="stepper"><li class="on">1. あなたの情報</li><li>2. 参加方法</li><li>3. 投稿日・受取</li></ol>
 
     <form id="applyForm" novalidate>
       <fieldset class="fstep">
@@ -246,6 +258,17 @@
           <p class="err" data-err="date"></p>
         </div>
 
+        <div class="field">
+          <span class="flabel">受け取るギフトカード<span class="req">必須</span></span>
+          <span class="help">リワードを受け取るギフトカードを1つ選んでください（Amazon は対象外）</span>
+          <div class="gifts">
+            <label class="gift-opt"><input type="radio" name="gift" value="Apple"><img src="images/gift-apple.png" alt=""><span>Apple</span></label>
+            <label class="gift-opt"><input type="radio" name="gift" value="Google Play"><img src="images/gift-googleplay.png" alt=""><span>Google Play</span></label>
+            <label class="gift-opt"><input type="radio" name="gift" value="Rakuten"><img src="images/gift-rakuten.png" alt=""><span>楽天</span></label>
+          </div>
+          <p class="err" data-err="gift"></p>
+        </div>
+
         <div class="confirm-title">入力内容の確認</div>
         <dl class="confirm"></dl>
 
@@ -254,7 +277,7 @@
             <ul>
               <li>ハッシュタグ3つ（#AND2BLE #앤더블 #AND2BLE_FrenchKissing）を付けて投稿します</li>
               <li>Instagram は「オリジナル音源」で投稿します</li>
-              <li>両方に投稿する場合、背景か構図を変えます</li>
+              <li>両方に投稿する場合、背景か構図を<b>見てわかるほど</b>変えます（区別できない場合は1つのみ認定）</li>
             </ul></span></label>
           <p class="err" data-err="agree"></p>
         </div>

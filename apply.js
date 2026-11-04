@@ -18,13 +18,15 @@
       igEmpty: 'Instagram アカウントのリンクを入力してください',
       ig: 'Instagram のプロフィールリンクを入力してください（例：https://www.instagram.com/your_id）',
       date: '投稿予定日を選んでください',
+      gift: '受け取るギフトカードを選んでください',
       agree: '注意事項の確認・同意が必要です',
       willSave: 'このリンクで登録されます：',
       notReady: '現在、応募受付の準備中です。しばらくしてからもう一度お試しください。',
       fail: '送信できませんでした。通信環境を確認して、もう一度お試しください。',
       sending: '送信中…',
       platforms: { tiktok: 'TikTok のみ', instagram: 'Instagram のみ', both: 'TikTok + Instagram（ミラーリング）' },
-      rows: { name: 'お名前', email: 'メール', contact: '連絡先', platform: '参加方法', tiktok: 'TikTok', instagram: 'Instagram', date: '投稿予定日' }
+      rows: { name: 'お名前', email: 'メール', contact: '連絡先', platform: '参加方法', tiktok: 'TikTok', instagram: 'Instagram', date: '投稿予定日', gift: 'ギフトカード' },
+      gifts: { 'Apple': 'Apple', 'Google Play': 'Google Play', 'Rakuten': '楽天' }
     },
     ko: {
       name: '이름(활동명)을 입력해 주세요',
@@ -37,13 +39,15 @@
       igEmpty: 'Instagram 계정 링크를 입력해 주세요',
       ig: 'Instagram 프로필 링크를 입력해 주세요 (예: https://www.instagram.com/your_id)',
       date: '업로드 예정일을 선택해 주세요',
+      gift: '정산받을 기프트카드를 선택해 주세요',
       agree: '유의사항 확인 및 동의가 필요해요',
       willSave: '이 링크로 등록돼요: ',
       notReady: '현재 응모 접수를 준비 중이에요. 잠시 후 다시 시도해 주세요.',
       fail: '제출하지 못했어요. 인터넷 연결을 확인하고 다시 시도해 주세요.',
       sending: '제출 중…',
       platforms: { tiktok: 'TikTok만 참여', instagram: 'Instagram만 참여', both: 'TikTok + Instagram 동시 참여 (미러링)' },
-      rows: { name: '이름', email: '이메일', contact: '연락처', platform: '참여 방식', tiktok: 'TikTok', instagram: 'Instagram', date: '업로드 예정일' }
+      rows: { name: '이름', email: '이메일', contact: '연락처', platform: '참여 방식', tiktok: 'TikTok', instagram: 'Instagram', date: '업로드 예정일', gift: '기프트카드' },
+      gifts: { 'Apple': 'Apple', 'Google Play': 'Google Play', 'Rakuten': '라쿠텐' }
     }
   }[lang];
 
@@ -114,9 +118,10 @@
       return setErr('instagram', !raw.trim() ? T.igEmpty : (n ? '' : T.ig));
     },
     date: function () { return setErr('date', form.querySelector('input[name=date]:checked') ? '' : T.date); },
+    gift: function () { return setErr('gift', form.querySelector('input[name=gift]:checked') ? '' : T.gift); },
     agree: function () { return setErr('agree', field('agree').checked ? '' : T.agree); }
   };
-  var STEP_FIELDS = [['name', 'email', 'contact'], ['platform', 'tiktok', 'instagram'], ['date', 'agree']];
+  var STEP_FIELDS = [['name', 'email', 'contact'], ['platform', 'tiktok', 'instagram'], ['date', 'gift', 'agree']];
 
   function preview(name, n) {
     var p = form.querySelector('[data-preview="' + name + '"]');
@@ -150,6 +155,7 @@
     var n = e.target.name;
     if (n === 'platform') { syncPlatform(); V.platform(); }
     if (n === 'date') V.date();
+    if (n === 'gift') V.gift();
     if (n === 'agree') V.agree();
   });
   form.addEventListener('focusout', function (e) {
@@ -188,7 +194,8 @@
       platformLabel: T.platforms[platform()] || '',
       tiktok: needTT() ? normTikTok(field('tiktok').value) : '',
       instagram: needIG() ? normInstagram(field('instagram').value) : '',
-      postDate: d ? d.value : ''
+      postDate: d ? d.value : '',
+      giftCard: (form.querySelector('input[name=gift]:checked') || {}).value || ''
     };
   }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }

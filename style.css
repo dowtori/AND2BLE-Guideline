@@ -264,6 +264,33 @@ details.acc[open] summary { border-bottom: 1px solid var(--line); background: #f
 .reward.best { background: var(--accent-soft); border-color: #ffc6da; }
 @media (max-width: 380px) { .reward .v b { font-size: 20px; } }
 
+/* gift cards */
+.gift { margin-top: 18px; border: 2px dashed #ffb3cc; border-radius: 18px; padding: 16px; background: #fffafc; }
+.gift-title { font-weight: 900; font-size: 16px; text-align: center; margin-bottom: 12px; }
+.gift-title b { color: var(--accent-dark); }
+.gift-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.gift-grid figure { margin: 0; text-align: center; }
+.gift-grid img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+.gift-grid figcaption { font-size: 13px; font-weight: 700; margin-top: 6px; }
+.gift .hint { text-align: center; }
+.no-amazon { display: inline-block; margin-top: 4px; font-size: 12px; font-weight: 700; color: var(--ng); }
+
+.gifts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.gift-opt { position: relative; cursor: pointer; text-align: center; border: 2px solid #e2dbd0; border-radius: 14px; padding: 6px 6px 8px; background: #fff; }
+.gift-opt input { position: absolute; opacity: 0; pointer-events: none; }
+.gift-opt img { display: block; width: 100%; height: auto; border-radius: 9px; }
+.gift-opt span { display: block; font-size: 13px; font-weight: 700; margin-top: 4px; }
+.gift-opt:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 3px var(--accent-soft); }
+.gift-opt:has(input:checked)::after { content: "✓"; position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 900; font-size: 13px; display: grid; place-items: center; }
+.gift-opt:has(input:focus-visible) { outline: 3px solid var(--accent-soft); outline-offset: 2px; }
+.field.bad .gift-opt { border-color: #f3b9bb; }
+
+/* red mirroring alert */
+.alert-red { background: #fff0f0; border: 2px solid var(--ng); border-radius: 14px; padding: 14px 16px; margin: 0 0 18px; font-size: 14px; line-height: 1.75; color: #7a1d20; }
+.alert-red > b:first-child { display: block; color: var(--ng); font-size: 16px; margin-bottom: 4px; }
+.alert-red strong { color: var(--ng); }
+.red-note { display: block; color: var(--ng); font-size: 12px; font-weight: 700; margin-top: 2px; }
+
 /* ---------- apply form ---------- */
 #apply { border: 2px solid var(--accent); }
 .stepper { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 0 0 20px; padding: 0; }

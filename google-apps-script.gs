@@ -13,7 +13,7 @@
  */
 
 var SHEET_NAME = '응모';
-var HEADERS = ['제출 시각', '언어', '이름', '이메일', '연락처', '참여 방식', 'TikTok', 'Instagram', '업로드 예정일'];
+var HEADERS = ['제출 시각', '언어', '이름', '이메일', '연락처', '참여 방식', 'TikTok', 'Instagram', '업로드 예정일', '기프트카드'];
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
@@ -35,7 +35,8 @@ function doPost(e) {
       safe(d.platformLabel || d.platform),
       safe(d.tiktok),
       safe(d.instagram),
-      safe(d.postDate)
+      safe(d.postDate),
+      safe(d.giftCard)
     ]);
     return json({ ok: true });
   } catch (err) {

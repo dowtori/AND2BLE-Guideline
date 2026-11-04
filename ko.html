@@ -15,7 +15,6 @@
 
   <div class="topbar">
     <a class="brand" href="index.html" style="text-decoration:none">‹ SIRIAI</a>
-    <nav class="lang" aria-label="언어"><a href="ja.html">日本語</a><a class="on" href="ko.html">한국어</a></nav>
   </div>
 
   <!-- ===== 개요 ===== -->
@@ -67,8 +66,17 @@
         <span class="t">TikTok + Instagram 동시 참여<small>미러링 (두 곳 모두 업로드)</small></span>
         <span class="v"><b>¥12,000</b><small>상당</small></span>
       </div>
+      <span class="red-note">※ 배경·구도가 눈으로 확실히 구분되지 않으면 하나의 콘텐츠만 인정될 수 있어요</span>
     </div>
-  </section>
+    <div class="gift">
+      <div class="gift-title">🎁 리워드는 <b>기프트카드</b>로 정산돼요</div>
+      <div class="gift-grid">
+        <figure><img src="images/gift-apple.png" alt="Apple 기프트카드" loading="lazy"><figcaption>Apple</figcaption></figure>
+        <figure><img src="images/gift-googleplay.png" alt="Google Play 기프트카드" loading="lazy"><figcaption>Google Play</figcaption></figure>
+        <figure><img src="images/gift-rakuten.png" alt="라쿠텐 기프트카드" loading="lazy"><figcaption>라쿠텐</figcaption></figure>
+      </div>
+      <p class="hint">응모할 때 정산받을 기프트카드를 하나 선택해 주세요.<br><span class="no-amazon">✕ Amazon 기프트카드는 정산 대상이 아니에요</span></p>
+    </div>  </section>
 
   <!-- ===== 안무 ===== -->
   <section class="card" id="dance">
@@ -147,6 +155,10 @@
   <section class="card" id="mirror">
     <h2><span class="num">4</span>미러링 주의사항</h2>
     <p class="lead">TikTok과 Instagram <b>두 곳에 업로드(미러링)해도 괜찮아요</b>. 단, 두 영상은 <span class="em">배경 혹은 구도가 완전히 달라야</span> 합니다.</p>
+    <div class="alert-red">
+      <b>⚠ 눈으로 확실히 구분되지 않으면 하나의 콘텐츠만 인정될 수 있어요</b>
+      아래 '미인정 예시'처럼 배경이나 구도가 확실히 다르지 않으면, TikTok과 Instagram 두 곳에 올려도 <strong>하나의 콘텐츠만 인정</strong>될 수 있어요.<br>두 영상은 <strong>육안으로 바로 구분</strong>되도록 촬영해 주세요.
+    </div>
 
     <div class="compare">
       <div class="ok">
@@ -178,7 +190,7 @@
     <h2>응모하기</h2>
     <p class="lead">3단계 · 약 1분이면 끝나요. <b>응모한 뒤에 업로드해 주세요.</b></p>
 
-    <ol class="stepper"><li class="on">1. 내 정보</li><li>2. 참여 방식</li><li>3. 업로드 예정일</li></ol>
+    <ol class="stepper"><li class="on">1. 내 정보</li><li>2. 참여 방식</li><li>3. 예정일 · 정산</li></ol>
 
     <form id="applyForm" novalidate>
       <fieldset class="fstep">
@@ -246,6 +258,17 @@
           <p class="err" data-err="date"></p>
         </div>
 
+        <div class="field">
+          <span class="flabel">정산받을 기프트카드<span class="req">필수</span></span>
+          <span class="help">리워드를 받을 기프트카드를 하나 골라 주세요 (Amazon 제외)</span>
+          <div class="gifts">
+            <label class="gift-opt"><input type="radio" name="gift" value="Apple"><img src="images/gift-apple.png" alt=""><span>Apple</span></label>
+            <label class="gift-opt"><input type="radio" name="gift" value="Google Play"><img src="images/gift-googleplay.png" alt=""><span>Google Play</span></label>
+            <label class="gift-opt"><input type="radio" name="gift" value="Rakuten"><img src="images/gift-rakuten.png" alt=""><span>라쿠텐</span></label>
+          </div>
+          <p class="err" data-err="gift"></p>
+        </div>
+
         <div class="confirm-title">입력 내용 확인</div>
         <dl class="confirm"></dl>
 
@@ -254,7 +277,7 @@
             <ul>
               <li>해시태그 3개(#AND2BLE #앤더블 #AND2BLE_FrenchKissing)를 달아서 업로드합니다</li>
               <li>Instagram은 '오리지널 오디오'로 업로드합니다</li>
-              <li>두 곳에 올릴 경우 배경이나 구도를 바꿉니다</li>
+              <li>두 곳에 올릴 경우 배경이나 구도를 <b>눈으로 구분될 만큼</b> 바꿉니다 (구분되지 않으면 하나만 인정)</li>
             </ul></span></label>
           <p class="err" data-err="agree"></p>
         </div>
