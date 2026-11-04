@@ -273,6 +273,8 @@ details.acc[open] summary { border-bottom: 1px solid var(--line); background: #f
 .gift-grid img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
 .gift-grid figcaption { font-size: 13px; font-weight: 700; margin-top: 6px; }
 .gift .hint { text-align: center; }
+.gift-names { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.gift-names span { background: #fff; border: 1.5px solid #ffc6da; color: var(--ink); font-weight: 700; font-size: 15px; padding: 6px 16px; border-radius: 999px; }
 .no-amazon { display: inline-block; margin-top: 4px; font-size: 12px; font-weight: 700; color: var(--ng); }
 
 .gifts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
