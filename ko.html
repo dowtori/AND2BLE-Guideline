@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261104f">
+<link rel="stylesheet" href="style.css?v=20261104g">
 </head>
 <body>
 <div class="wrap">
@@ -55,7 +55,7 @@
       <h2>이것만 먼저 확인하세요</h2>
       <dl>
         <div class="sum-row"><dt>업로드 기간</dt><dd>11월 9일(월) ~ 11월 15일(일)<small>일본 시간 기준</small></dd></div>
-        <div class="sum-row"><dt>플랫폼</dt><dd>TikTok · Instagram 릴스<small>두 곳 모두 업로드 가능 (배경과 구도를 모두 바꾼 새 콘텐츠로)</small></dd></div>
+        <div class="sum-row"><dt>플랫폼</dt><dd>TikTok · Instagram 릴스<small>두 곳 모두 업로드 가능 <b class="must-inline">단, 의상·장소 변경 필수</b></small></dd></div>
         <div class="sum-row"><dt>리워드</dt><dd>최대 ¥12,000 상당<small>TikTok + Instagram 동시 참여 시</small></dd></div>
         <div class="sum-row"><dt>챌린지 구간</dt><dd>음원 00:16 ~ 00:36<small>약 20초</small></dd></div>
         <div class="sum-row"><dt>해시태그</dt><dd>
@@ -95,7 +95,7 @@
         <span class="t">TikTok + Instagram 동시 참여<small>미러링 (두 곳 모두 업로드)</small></span>
         <span class="v"><b>¥12,000</b><small>상당</small></span>
       </div>
-      <span class="red-note">※ 배경·구도가 눈으로 확실히 구분되지 않으면 하나의 콘텐츠만 인정될 수 있어요</span>
+      <span class="red-note">※ 미러링은 <b>의상과 장소 변경 필수</b>! 둘 중 하나라도 같으면 하나의 콘텐츠만 인정돼요</span>
     </div>
     <div class="gift">
       <div class="gift-title">🎁 리워드는 <b>기프트카드</b>로 정산돼요</div>
@@ -162,10 +162,10 @@
   <!-- ===== 미러링 ===== -->
   <section class="card" id="mirror">
     <h2><span class="num">3</span>미러링 주의사항</h2>
-    <p class="lead">TikTok과 Instagram <b>두 곳에 업로드(미러링)해도 괜찮아요</b>. 단, 두 번째로 올리는 영상은 <span class="em">배경과 구도를 모두 바꾼 완전히 새로운 콘텐츠</span>여야 합니다.</p>
+    <p class="lead">TikTok과 Instagram <b>두 곳에 업로드(미러링)해도 괜찮아요</b>. 단, 두 번째로 올리는 영상은 <span class="em">의상과 장소를 모두 바꾼 완전히 새로운 콘텐츠</span>여야 합니다.</p>
     <div class="alert-red">
       <b>⚠ 눈으로 확실히 구분되지 않으면 하나의 콘텐츠만 인정될 수 있어요</b>
-      아래 '미인정 예시'처럼 배경과 구도가 모두 확실히 다르지 않으면, TikTok과 Instagram 두 곳에 올려도 <strong>하나의 콘텐츠만 인정</strong>될 수 있어요.<br>두 영상은 <strong>육안으로 바로 구분</strong>되도록 촬영해 주세요.
+      아래 '미인정 예시'처럼 의상과 장소가 모두 확실히 다르지 않으면, TikTok과 Instagram 두 곳에 올려도 <strong>하나의 콘텐츠만 인정</strong>될 수 있어요.<br>두 영상은 <strong>육안으로 바로 구분</strong>되도록 촬영해 주세요.
     </div>
 
     <div class="ex-cols">
@@ -217,7 +217,7 @@
           <div class="choices">
             <label class="choice"><input type="radio" name="platform" value="tiktok"><span class="radio"></span><span class="ct"><b>TikTok만 참여</b><small>TikTok에 업로드</small></span><span class="amt">¥5,000</span></label>
             <label class="choice"><input type="radio" name="platform" value="instagram"><span class="radio"></span><span class="ct"><b>Instagram만 참여</b><small>Instagram 릴스에 업로드</small></span><span class="amt">¥5,000</span></label>
-            <label class="choice"><input type="radio" name="platform" value="both"><span class="radio"></span><span class="ct"><b>TikTok + Instagram 동시 참여</b><small>미러링 · 배경과 구도를 모두 바꾼 새 콘텐츠로 업로드</small></span><span class="amt">¥12,000</span></label>
+            <label class="choice"><input type="radio" name="platform" value="both"><span class="radio"></span><span class="ct"><b>TikTok + Instagram 동시 참여</b><small>미러링 · <b class="must-inline">의상·장소 변경 필수</b></small></span><span class="amt">¥12,000</span></label>
           </div>
           <p class="err" data-err="platform"></p>
         </div>
@@ -275,7 +275,7 @@
             <ul>
               <li>해시태그 3개(#AND2BLE #앤더블 #AND2BLE_FrenchKissing)를 달아서 업로드합니다</li>
               <li>Instagram은 '오리지널 오디오'로 업로드합니다</li>
-              <li>두 곳에 올릴 경우 <b>배경과 구도를 모두 바꾼 완전히 새로운 콘텐츠</b>로 올립니다 (구분되지 않으면 하나만 인정)</li>
+              <li>두 곳에 올릴 경우 <b class="must-inline">의상과 장소를 모두 바꾼 완전히 새로운 콘텐츠</b>로 올립니다 (하나라도 같으면 하나만 인정)</li>
             </ul></span></label>
           <p class="err" data-err="agree"></p>
         </div>
@@ -303,7 +303,7 @@
   <a href="#apply" class="cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>신청</a>
 </nav>
 
-<script src="app.js?v=20261104f"></script>
-<script src="apply.js?v=20261104f"></script>
+<script src="app.js?v=20261104g"></script>
+<script src="apply.js?v=20261104g"></script>
 </body>
 </html>

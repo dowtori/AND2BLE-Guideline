@@ -512,3 +512,18 @@ footer { text-align: center; color: var(--muted); font-size: 11px; letter-spacin
   .confirm div { grid-template-columns: 80px 1fr; font-size: 13px; }
   .fnav { height: 60px; bottom: calc(10px + env(safe-area-inset-bottom)); width: calc(100% - 20px); border-radius: 20px; }
 }
+
+/* mirroring must-rule banner */
+.must-banner { background: var(--ng); color: #fff; border-radius: 18px; padding: 18px 16px; margin: 0 0 16px; text-align: center; box-shadow: 0 6px 18px rgba(224,69,74,.25); }
+.must-title { font-size: 13px; font-weight: 900; letter-spacing: .08em; opacity: .9; margin-bottom: 10px; }
+.must-items { display: flex; align-items: center; justify-content: center; gap: 8px; }
+.must-item { flex: 1; max-width: 180px; background: #fff; color: var(--ng); border-radius: 14px; padding: 12px 6px 10px; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.must-ic { font-size: 30px; line-height: 1.1; }
+.must-item b { font-size: 17px; font-weight: 900; color: var(--ink); }
+.must-tag { background: var(--ng); color: #fff; font-size: 12px; font-weight: 900; padding: 2px 10px; border-radius: 999px; margin-top: 2px; }
+.must-plus { font-size: 26px; font-weight: 900; }
+.must-note { margin: 12px 0 0; font-size: 14px; line-height: 1.7; color: #fff; }
+.must-note b { background: rgba(255,255,255,.2); padding: 0 3px; border-radius: 4px; }
+.must-inline { color: var(--ng); font-weight: 900; }
+.summary .must-inline { color: #ff8a8e; }
+@media (max-width: 480px) { .must-item b { font-size: 15px; } .must-ic { font-size: 26px; } .must-note { font-size: 13px; } }
