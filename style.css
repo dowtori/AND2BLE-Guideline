@@ -239,6 +239,19 @@ details.acc[open] summary { border-bottom: 1px solid var(--line); background: #f
   .ex-frame.ig iframe { height: 620px; }
 }
 
+/* reward */
+.kicker { font-size: 12px; font-weight: 900; letter-spacing: .18em; color: var(--accent); margin-bottom: 4px; }
+.reward-list { display: grid; gap: 10px; }
+.reward { display: flex; align-items: center; gap: 14px; background: #faf8f5; border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+.reward .n { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 900; font-size: 14px; display: grid; place-items: center; }
+.reward .t { flex: 1; min-width: 0; font-weight: 700; line-height: 1.5; }
+.reward .t small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; }
+.reward .v { flex: none; text-align: right; line-height: 1.2; }
+.reward .v b { display: block; font-size: 24px; font-weight: 900; color: var(--accent); font-variant-numeric: tabular-nums; }
+.reward .v small { font-size: 11px; color: var(--muted); }
+.reward.best { background: var(--accent-soft); border-color: #ffc6da; }
+@media (max-width: 380px) { .reward .v b { font-size: 20px; } }
+
 /* footer */
 footer { text-align: center; color: var(--muted); font-size: 11px; letter-spacing: .15em; margin-top: 28px; }
 
@@ -248,7 +261,7 @@ footer { text-align: center; color: var(--muted); font-size: 11px; letter-spacin
   bottom: calc(12px + env(safe-area-inset-bottom));
   width: min(560px, calc(100% - 24px));
   height: var(--nav-h);
-  display: grid; grid-template-columns: repeat(5, 1fr);
+  display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
   background: rgba(27,25,23,.92);
   -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
   border-radius: 22px; padding: 6px;
@@ -257,7 +270,7 @@ footer { text-align: center; color: var(--muted); font-size: 11px; letter-spacin
 }
 .fnav a {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
-  color: #b9b2a8; text-decoration: none; font-size: 11px; font-weight: 700; border-radius: 16px; line-height: 1.2;
+  color: #b9b2a8; text-decoration: none; font-size: 10.5px; white-space: nowrap; font-weight: 700; border-radius: 16px; line-height: 1.2;
 }
 .fnav a svg { width: 22px; height: 22px; }
 .fnav a.on { background: rgba(255,255,255,.1); color: #fff; }
