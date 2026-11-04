@@ -467,3 +467,9 @@ footer { text-align: center; color: var(--muted); font-size: 11px; letter-spacin
 .ex-pair .ex-frame.ig { aspect-ratio: auto; height: 520px; }
 .ex-pair .ex-frame.ig iframe { position: static; height: 520px; }
 @media (max-width: 420px) { .ex-pair .ex-frame.ig, .ex-pair .ex-frame.ig iframe { height: 420px; } }
+.ex-cols, .ex-pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@media (max-width: 420px) {
+  .ex-col { padding: 10px 7px; }
+  .ex-btn { padding: 8px; gap: 6px; }
+  .ex-btn .go { display: none; }
+}
