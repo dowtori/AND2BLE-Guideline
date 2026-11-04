@@ -473,3 +473,42 @@ footer { text-align: center; color: var(--muted); font-size: 11px; letter-spacin
   .ex-btn { padding: 8px; gap: 6px; }
   .ex-btn .go { display: none; }
 }
+
+/* ---------- mobile tuning ---------- */
+.tag { min-height: 40px; }
+.ex-link { padding: 8px 0; margin-top: 0; }
+.tabs button { min-height: 44px; }
+@media (max-width: 480px) {
+  body { font-size: 15px; }
+  .wrap { padding: 10px 14px calc(var(--nav-h) + 40px); }
+  .hero { padding: 28px 16px 22px; border-radius: 24px; }
+  .hero h1 { font-size: 30px; }
+  .hero .song { font-size: 18px; }
+  section.card { padding: 22px 16px; border-radius: 18px; margin-bottom: 12px; }
+  .intro { padding-top: 0; }
+  .intro-photo { width: calc(100% + 32px); margin: 0 -16px 18px; }
+  h2 { font-size: 18px; gap: 8px; }
+  h2 .num { width: 26px; height: 26px; font-size: 13px; }
+  .lead { font-size: 14px; margin-bottom: 14px; }
+  .summary { padding: 20px 16px; }
+  .sum-row dd { font-size: 15px; }
+  .reward { padding: 12px; gap: 10px; }
+  .reward .n { width: 26px; height: 26px; font-size: 13px; }
+  .reward .t { font-size: 14px; }
+  .reward .t small { font-size: 12px; }
+  .reward .v b { font-size: 19px; }
+  .gift { padding: 14px 12px; }
+  .range b { font-size: 26px; }
+  .btn { padding: 14px 16px; font-size: 15px; }
+  .platform { padding: 14px 12px; }
+  ol.steps > li { padding-left: 42px; padding-bottom: 18px; }
+  .callout, .alert-red { padding: 12px 14px; font-size: 13.5px; }
+  .alert-red > b:first-child { font-size: 15px; }
+  .choice { padding: 12px; gap: 10px; }
+  .choice .ct b { font-size: 14px; }
+  .dates { gap: 6px; }
+  .date span { padding: 9px 2px; }
+  .date small { font-size: 12px; }
+  .confirm div { grid-template-columns: 80px 1fr; font-size: 13px; }
+  .fnav { height: 60px; bottom: calc(10px + env(safe-area-inset-bottom)); width: calc(100% - 20px); border-radius: 20px; }
+}
