@@ -12,6 +12,7 @@
       ended: '投稿期間は終了しました',
       okTitle: '認定例', ngTitle: '非認定例',
       open: '原本リンクを開く ↗',
+      play: '▶ 動画で見る', back: '写真に戻る',
       progress: function (a, b) { return a === b ? '準備OK！投稿しましょう 🎉' : a + ' / ' + b + ' 完了'; }
     },
     ko: {
@@ -24,6 +25,7 @@
       ended: '업로드 기간이 끝났어요',
       okTitle: '인정 예시', ngTitle: '미인정 예시',
       open: '원본 링크 열기 ↗',
+      play: '▶ 영상으로 보기', back: '사진으로 돌아가기',
       progress: function (a, b) { return a === b ? '준비 완료! 업로드해 주세요 🎉' : a + ' / ' + b + ' 완료'; }
     }
   }[lang];
@@ -126,38 +128,38 @@
     ]
   };
   function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-  // 왼쪽 = 인정 예시, 오른쪽 = 미인정 예시 버튼. 누르면 아래 뷰어에 TikTok · Instagram 을 나란히 띄운다.
-  document.querySelectorAll('[data-examples]').forEach(function (box) {
-    var kind = box.getAttribute('data-examples');
+  // 썸네일 비교 카드: 예시마다 TikTok · Instagram 대표 이미지를 나란히 보여주고, 누르면 그 자리에서 영상으로 바꾼다.
+  function thumbsHtml(kind, i, x) {
+    var k = kind + (i + 1);
+    return '<figure><img src="images/ex/' + k + '-tt.jpg" alt="TikTok ' + esc(x.who) + '" loading="lazy"><figcaption>TikTok</figcaption></figure>' +
+      '<span class="tcard-vs">' + (kind === 'ok' ? '≠' : '=') + '</span>' +
+      '<figure><img src="images/ex/' + k + '-ig.jpg" alt="Instagram ' + esc(x.who) + '" loading="lazy"><figcaption>Instagram</figcaption></figure>';
+  }
+  function videosHtml(x) {
+    var id = x.tt.split('/video/')[1];
+    return '<div class="tcard-vid"><div class="ex-frame tt"><iframe src="https://www.tiktok.com/player/v1/' + id + '?rel=0" title="TikTok ' + esc(x.who) + '" allow="fullscreen; encrypted-media" allowfullscreen></iframe></div>' +
+      '<a class="ex-link" href="' + x.tt + '" target="_blank" rel="noopener">' + T.open + '</a></div>' +
+      '<div class="tcard-vid"><div class="ex-frame ig"><iframe src="https://www.instagram.com/reel/' + x.ig + '/embed" title="Instagram ' + esc(x.who) + '" allowfullscreen></iframe></div>' +
+      '<a class="ex-link" href="https://www.instagram.com/reels/' + x.ig + '/" target="_blank" rel="noopener">' + T.open + '</a></div>';
+  }
+  document.querySelectorAll('[data-tcards]').forEach(function (box) {
+    var kind = box.getAttribute('data-tcards');
     var title = kind === 'ok' ? T.okTitle : T.ngTitle;
     box.innerHTML = EX[kind].map(function (x, i) {
-      return '<button type="button" class="ex-btn ' + kind + '" data-kind="' + kind + '" data-i="' + i + '" aria-pressed="false">' +
-        '<span class="n">' + (i + 1) + '</span><span class="tx">' + title + ' ' + (i + 1) +
-        '<small>' + esc(x.who) + '</small></span><span class="go">▶</span></button>';
+      return '<div class="tcard ' + kind + '" data-kind="' + kind + '" data-i="' + i + '">' +
+        '<div class="tcard-top"><span class="badge ' + kind + '">' + (kind === 'ok' ? '✓ OK' : '✕ NG') + '</span><b>' + title + ' ' + (i + 1) + '</b><small>' + esc(x.who) + '</small></div>' +
+        '<div class="tcard-pair">' + thumbsHtml(kind, i, x) + '</div>' +
+        '<button type="button" class="tcard-play">' + T.play + '</button></div>';
     }).join('');
   });
-  var viewer = document.querySelector('[data-viewer]');
   document.addEventListener('click', function (e) {
-    var b = e.target.closest('.ex-btn');
-    if (!b || !viewer) return;
-    var kind = b.getAttribute('data-kind'), i = +b.getAttribute('data-i'), x = EX[kind][i];
-    var wasOn = b.getAttribute('aria-pressed') === 'true';
-    document.querySelectorAll('.ex-btn').forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
-    if (wasOn) { viewer.hidden = true; viewer.innerHTML = ''; return; }
-    b.setAttribute('aria-pressed', 'true');
-    var id = x.tt.split('/video/')[1];
-    var title = (kind === 'ok' ? T.okTitle : T.ngTitle) + ' ' + (i + 1);
-    viewer.className = 'ex-viewer ' + kind;
-    viewer.innerHTML =
-      '<div class="ex-viewer-head"><span class="badge ' + kind + '">' + (kind === 'ok' ? '✓ OK' : '✕ NG') + '</span>' + title + ' <small>' + esc(x.who) + '</small></div>' +
-      '<div class="ex-pair">' +
-        '<div><div class="ex-plat">TikTok</div><div class="ex-frame tt"><iframe src="https://www.tiktok.com/player/v1/' + id + '?rel=0" title="TikTok ' + esc(x.who) + '" allow="fullscreen; encrypted-media" allowfullscreen></iframe></div>' +
-        '<a class="ex-link" href="' + x.tt + '" target="_blank" rel="noopener">' + T.open + '</a></div>' +
-        '<div><div class="ex-plat">Instagram</div><div class="ex-frame ig"><iframe src="https://www.instagram.com/reel/' + x.ig + '/embed" title="Instagram ' + esc(x.who) + '" allowfullscreen></iframe></div>' +
-        '<a class="ex-link" href="https://www.instagram.com/reels/' + x.ig + '/" target="_blank" rel="noopener">' + T.open + '</a></div>' +
-      '</div>';
-    viewer.hidden = false;
-    viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var b = e.target.closest('.tcard-play');
+    if (!b) return;
+    var card = b.closest('.tcard'), kind = card.getAttribute('data-kind'), i = +card.getAttribute('data-i'), x = EX[kind][i];
+    var pair = card.querySelector('.tcard-pair');
+    var playing = card.classList.toggle('playing');
+    pair.innerHTML = playing ? videosHtml(x) : thumbsHtml(kind, i, x);
+    b.textContent = playing ? T.back : T.play;
   });
 
   /* ---------- floating nav: active section ---------- */
