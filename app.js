@@ -160,6 +160,15 @@
     viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
+  /* ---------- language switch: keep the section the reader is on ---------- */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[data-lang]');
+    if (!a || a.classList.contains('on')) return;
+    var on = document.querySelector('.fnav a.on');
+    var hash = on && window.scrollY > 300 ? on.getAttribute('href') : '';
+    if (hash) { e.preventDefault(); location.href = a.getAttribute('href') + hash; }
+  });
+
   /* ---------- floating nav: active section ---------- */
   var links = document.querySelectorAll('.fnav a');
   var map = {};
