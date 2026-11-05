@@ -601,3 +601,9 @@ footer { text-align: center; color: var(--muted); font-size: 11px; letter-spacin
 .must-title { font-size: 15px; margin-bottom: 6px; opacity: 1; }
 .must-note { margin-top: 0; font-size: 16px; line-height: 1.8; }
 @media (max-width: 480px) { .must-note { font-size: 14.5px; } }
+
+/* note shown when both platforms are chosen */
+.both-note { margin-top: 10px; background: #fff0f0; border: 2px solid var(--ng); border-radius: 14px; padding: 12px 14px; font-size: 14px; line-height: 1.7; color: #5c1a1c; }
+.both-note[hidden] { display: none; }
+.both-note b { display: block; color: var(--ng); font-size: 14.5px; margin-bottom: 2px; }
+.both-note strong { color: var(--ng); }

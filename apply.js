@@ -166,6 +166,8 @@
   function syncPlatform() {
     form.querySelector('[data-acc="tiktok"]').hidden = !needTT();
     form.querySelector('[data-acc="instagram"]').hidden = !needIG();
+    var bn = form.querySelector('[data-both-note]');
+    if (bn) bn.hidden = platform() !== 'both';
     if (!needTT()) setErr('tiktok', '');
     if (!needIG()) setErr('instagram', '');
   }
