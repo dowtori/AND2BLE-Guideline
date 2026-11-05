@@ -60,30 +60,31 @@ function testTarget() {
   Logger.log('연결된 탭: ' + sh.getName());
 }
 
-// [한 번만 실행] 이미 들어와 있는 응답의 제출 시각을 한국 시간(+9시간)으로 고친다.
-// 두 번 실행되지 않도록 실행 기록을 남긴다.
-function fixPastTimes() {
+// [한 번만 실행] 2~24행(11/5 오후 6시 이전에 들어온 23건)의 제출 시각이 9시간 앞서 있어서,
+// 화면에 보이는 시각에서 정확히 9시간을 뺀다. 시간대 설정에 기대지 않고 글자 그대로 계산한다.
+function fixTimesMinus9() {
   var props = PropertiesService.getScriptProperties();
-  if (props.getProperty('KST_FIXED') === 'yes') {
-    Logger.log('이미 고쳤습니다. 다시 실행하지 않아요.');
-    return;
-  }
+  if (props.getProperty('KST_FIXED_2') === 'yes') { Logger.log('이미 고쳤어요. 다시 실행하지 않아요.'); return; }
+  var FIRST = 2, LAST = 24;
   var sh = getTargetSheet_();
-  var last = sh.getLastRow();
-  if (last < 2) { Logger.log('고칠 응답이 없어요.'); return; }
-  var range = sh.getRange(2, 1, last - 1, 1);
-  var vals = range.getValues();
-  var n = 0;
-  for (var i = 0; i < vals.length; i++) {
-    var v = vals[i][0];
-    if (v instanceof Date) {
-      vals[i][0] = Utilities.formatDate(new Date(v.getTime() + 9 * 3600 * 1000), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
-      n++;
-    }
+  if (String(sh.getRange(LAST, 3).getValue()).indexOf('すーの') === -1) {
+    Logger.log('24행이 すーの 가 아니라서 멈췄어요. 행이 바뀌었으면 알려주세요.'); return;
   }
-  range.setValues(vals);
-  props.setProperty('KST_FIXED', 'yes');
-  Logger.log(n + '개 응답의 시각을 한국 시간으로 고쳤어요.');
+  var range = sh.getRange(FIRST, 1, LAST - FIRST + 1, 1);
+  var shown = range.getDisplayValues();
+  var out = [], bad = [];
+  for (var i = 0; i < shown.length; i++) {
+    var m = String(shown[i][0]).match(/(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\.?\s*(오전|오후)\s*(\d{1,2}):(\d{2}):(\d{2})/);
+    if (!m) { bad.push(FIRST + i); out.push([shown[i][0]]); continue; }
+    var h = +m[5] % 12 + (m[4] === '오후' ? 12 : 0);
+    var t = Date.UTC(+m[1], +m[2] - 1, +m[3], h, +m[6], +m[7]) - 9 * 3600 * 1000;
+    var d = new Date(t), p = function (x) { return ('0' + x).slice(-2); };
+    out.push([d.getUTCFullYear() + '-' + p(d.getUTCMonth() + 1) + '-' + p(d.getUTCDate()) + ' ' + p(d.getUTCHours()) + ':' + p(d.getUTCMinutes()) + ':' + p(d.getUTCSeconds())]);
+  }
+  if (bad.length) { Logger.log('읽지 못한 행: ' + bad.join(', ') + ' → 아무것도 바꾸지 않았어요.'); return; }
+  range.setValues(out);
+  props.setProperty('KST_FIXED_2', 'yes');
+  Logger.log(out.length + '건을 9시간 앞당겼어요. 첫 줄: ' + out[0][0] + ' / 마지막 줄: ' + out[out.length - 1][0]);
 }
 
 // 수식으로 해석될 수 있는 값(=, +, -, @ 로 시작)은 텍스트로 저장한다.
