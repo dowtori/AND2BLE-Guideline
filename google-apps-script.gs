@@ -34,7 +34,8 @@ function doPost(e) {
       sh.setFrozenRows(1);
     }
     sh.appendRow([
-      new Date(),
+      // 스크립트 시간대 설정과 상관없이 항상 한국 시간으로 기록한다.
+      Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss'),
       safe(d.lang),
       safe(d.name),
       safe(d.email),
@@ -57,6 +58,32 @@ function doPost(e) {
 function testTarget() {
   var sh = getTargetSheet_();
   Logger.log('연결된 탭: ' + sh.getName());
+}
+
+// [한 번만 실행] 이미 들어와 있는 응답의 제출 시각을 한국 시간(+9시간)으로 고친다.
+// 두 번 실행되지 않도록 실행 기록을 남긴다.
+function fixPastTimes() {
+  var props = PropertiesService.getScriptProperties();
+  if (props.getProperty('KST_FIXED') === 'yes') {
+    Logger.log('이미 고쳤습니다. 다시 실행하지 않아요.');
+    return;
+  }
+  var sh = getTargetSheet_();
+  var last = sh.getLastRow();
+  if (last < 2) { Logger.log('고칠 응답이 없어요.'); return; }
+  var range = sh.getRange(2, 1, last - 1, 1);
+  var vals = range.getValues();
+  var n = 0;
+  for (var i = 0; i < vals.length; i++) {
+    var v = vals[i][0];
+    if (v instanceof Date) {
+      vals[i][0] = Utilities.formatDate(new Date(v.getTime() + 9 * 3600 * 1000), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
+      n++;
+    }
+  }
+  range.setValues(vals);
+  props.setProperty('KST_FIXED', 'yes');
+  Logger.log(n + '개 응답의 시각을 한국 시간으로 고쳤어요.');
 }
 
 // 수식으로 해석될 수 있는 값(=, +, -, @ 로 시작)은 텍스트로 저장한다.
