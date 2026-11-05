@@ -13,10 +13,10 @@
       email: 'メールアドレスの形式が正しくありません（例：name@example.com）',
       contact: '電話番号または LINE ID を入力してください',
       platform: '参加方法を選んでください',
-      ttEmpty: 'TikTok アカウントのリンクを入力してください',
-      tt: 'TikTok のプロフィールリンクを入力してください（例：https://www.tiktok.com/@your_id）',
-      igEmpty: 'Instagram アカウントのリンクを入力してください',
-      ig: 'Instagram のプロフィールリンクを入力してください（例：https://www.instagram.com/your_id）',
+      ttEmpty: 'TikTok の ID を入力してください',
+      tt: 'TikTok の ID を確認してください（英数字・「.」「_」のみ　例：@your_id）',
+      igEmpty: 'Instagram の ID を入力してください',
+      ig: 'Instagram の ID を確認してください（英数字・「.」「_」のみ　例：@your_id）',
       date: '投稿予定日を選んでください',
       gift: '受け取るギフトカードを選んでください',
       agree: '注意事項の確認・同意が必要です',
@@ -34,10 +34,10 @@
       email: '이메일 주소 형식이 올바르지 않아요 (예: name@example.com)',
       contact: '전화번호 또는 LINE ID를 입력해 주세요',
       platform: '참여 방식을 선택해 주세요',
-      ttEmpty: 'TikTok 계정 링크를 입력해 주세요',
-      tt: 'TikTok 프로필 링크를 입력해 주세요 (예: https://www.tiktok.com/@your_id)',
-      igEmpty: 'Instagram 계정 링크를 입력해 주세요',
-      ig: 'Instagram 프로필 링크를 입력해 주세요 (예: https://www.instagram.com/your_id)',
+      ttEmpty: 'TikTok 아이디를 입력해 주세요',
+      tt: 'TikTok 아이디를 확인해 주세요 (영문·숫자·「.」「_」만 가능, 예: @your_id)',
+      igEmpty: 'Instagram 아이디를 입력해 주세요',
+      ig: 'Instagram 아이디를 확인해 주세요 (영문·숫자·「.」「_」만 가능, 예: @your_id)',
       date: '업로드 예정일을 선택해 주세요',
       gift: '정산받을 기프트카드를 선택해 주세요',
       agree: '유의사항 확인 및 동의가 필요해요',
@@ -82,7 +82,7 @@
     var v = (raw || '').trim();
     if (!v) return '';
     var id;
-    var m = v.match(/^@([A-Za-z0-9._]{1,30})$/);
+    var m = v.match(/^@?([A-Za-z0-9._]{1,30})$/);
     if (m) id = m[1];
     else {
       m = v.replace(/^https?:\/\//i, '').match(/^(?:www\.|m\.)?instagram\.com\/([A-Za-z0-9._]{1,30})\/?(?:[?#].*)?$/i);
