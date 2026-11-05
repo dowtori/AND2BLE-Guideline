@@ -103,7 +103,7 @@
       var v = field('email').value.trim();
       return setErr('email', !v ? T.emailEmpty : (EMAIL_RE.test(v) ? '' : T.email));
     },
-    contact: function () { return setErr('contact', field('contact').value.trim().length >= 2 ? '' : T.contact); },
+    contact: function () { return setErr('contact', ''); }, // 선택 항목: 비워도 통과
     platform: function () { return setErr('platform', platform() ? '' : T.platform); },
     tiktok: function () {
       if (!needTT()) return setErr('tiktok', '');
@@ -203,7 +203,9 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function fillSummary() {
     var d = data(), r = T.rows;
-    var rows = [[r.name, d.name], [r.email, d.email], [r.contact, d.contact], [r.platform, d.platformLabel]];
+    var rows = [[r.name, d.name], [r.email, d.email]];
+    if (d.contact) rows.push([r.contact, d.contact]);
+    rows.push([r.platform, d.platformLabel]);
     if (d.tiktok) rows.push([r.tiktok, d.tiktok]);
     if (d.instagram) rows.push([r.instagram, d.instagram]);
     form.querySelector('.confirm').innerHTML = rows.map(function (x) {

@@ -607,3 +607,5 @@ footer { text-align: center; color: var(--muted); font-size: 11px; letter-spacin
 .both-note[hidden] { display: none; }
 .both-note b { display: block; color: var(--ng); font-size: 14.5px; margin-bottom: 2px; }
 .both-note strong { color: var(--ng); }
+
+.opt { color: var(--muted); font-size: 12px; font-weight: 700; margin-left: 4px; }
