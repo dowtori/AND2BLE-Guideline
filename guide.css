@@ -186,3 +186,4 @@ details.more[open] > summary { border-bottom: 1px solid var(--line); }
 .toast.plat { background: var(--ink); white-space: normal; text-align: center; width: max-content; max-width: calc(100% - 32px); }
 @media (prefers-reduced-motion: reduce) { .wrap > section.card.plat-swap, .pick-now.flash, .start-reward.plat-swap .amt { animation: none; } }
 .guide #shoot, .guide #upload, .guide #mirror { scroll-margin-top: 110px; }
+.why.acct { margin: 0 0 16px; font-size: 14px; }
