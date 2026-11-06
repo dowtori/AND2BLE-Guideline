@@ -1,53 +1,81 @@
 /* ---------- detailed guide pages (guide-ko.html / guide-ja.html) ---------- */
-.back-link { font-size: 13px; font-weight: 700; color: var(--ink-2); text-decoration: none; }
-.back-link:hover { color: var(--accent-dark); }
 
-.toc { background: var(--card); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
-.toc-title { font-size: 12px; font-weight: 900; letter-spacing: .18em; color: var(--accent); margin-bottom: 6px; }
-.toc ol { margin: 0; padding: 0; list-style: none; counter-reset: t; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2px 12px; }
-.toc li { counter-increment: t; }
-.toc a { display: flex; gap: 8px; padding: 7px 0; text-decoration: none; font-weight: 700; font-size: 14px; line-height: 1.4; }
-.toc a::before { content: "›"; color: var(--accent); font-weight: 900; }
-.toc a:hover { color: var(--accent-dark); }
-@media (max-width: 380px) { .toc ol { grid-template-columns: 1fr; } }
+/* bigger, calmer reading on the guide pages */
+.guide { font-size: 16px; }
+.guide .lead { font-size: 15.5px; color: var(--ink); }
+.guide .hint { font-size: 13px; line-height: 1.6; }
+.guide h2 { font-size: 21px; }
+.guide section.card { padding: 26px 20px; }
+.guide .hero .release { font-size: 14px; font-weight: 700; color: var(--accent-dark); margin-top: 4px; }
 
-.summary { scroll-margin-top: 16px; }
-.summary .sum-row:first-of-type { border-top: 0; padding-top: 0; }
+.gh3 { font-size: 16px; font-weight: 900; margin: 24px 0 10px; }
 
-.gh3 { font-size: 15px; font-weight: 900; margin: 22px 0 8px; }
-.range + .gh3 { margin-top: 20px; }
-.steps a { color: var(--accent-dark); font-weight: 700; }
-.panel { margin-bottom: 4px; }
-.audio-link { display: inline-block; margin-top: 4px; font-size: 13px; }
-.steps .d .audio-link { display: block; }
-.range + .btn { margin-top: 10px; }
-.method { border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 14px; margin-bottom: 8px; background: #fff; }
-.method.rec { border-color: #9fdcbf; background: var(--ok-soft); }
-.method-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-weight: 900; font-size: 15px; margin-bottom: 4px; }
-.method-h .badge:not(.ok) { background: var(--bg); color: var(--ink-2); }
-.method p { font-size: 14px; color: var(--ink-2); line-height: 1.7; margin: 0; }
-.method + .steps { margin-top: 18px; }
+/* ---- "3 things to do" ---- */
+.quick3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.quick3 a { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 16px 6px 14px; border-radius: 16px; background: var(--accent-soft); color: var(--ink); text-decoration: none; line-height: 1.35; }
+.quick3 .qn { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 900; font-size: 16px; display: grid; place-items: center; margin-bottom: 4px; }
+.quick3 b { font-size: 15px; font-weight: 900; }
+.quick3 small { font-size: 12.5px; color: var(--ink-2); font-weight: 700; }
+.after { margin: 14px 0 0; padding: 12px 14px; border-radius: 12px; background: var(--bg); font-size: 15px; text-align: center; }
 
-.rule-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.rule-list li { position: relative; padding: 12px 14px 12px 42px; border-radius: 12px; font-size: 14px; line-height: 1.65; }
-.rule-list li::before { position: absolute; left: 14px; top: 12px; font-weight: 900; }
-.rule-list.must li { background: var(--accent-soft); }
-.rule-list.must li::before { content: "!"; color: #fff; background: var(--accent); width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; top: 14px; left: 12px; }
-.rule-list.tip li { background: var(--bg); }
-.rule-list.tip li::before { content: "✓"; color: var(--ok); }
+/* ---- key rules grid ---- */
+.key-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.key { display: flex; flex-direction: column; gap: 2px; padding: 14px; border-radius: 16px; background: var(--bg); line-height: 1.35; }
+.key .ki { font-size: 22px; line-height: 1; margin-bottom: 6px; font-weight: 900; color: var(--accent); }
+.key .kl { font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.key b { font-size: 18px; font-weight: 900; }
+.key small { font-size: 12.5px; color: var(--ink-2); }
 
-.mtable { width: 100%; border-collapse: separate; border-spacing: 0; margin: 0 0 4px; font-size: 14px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
-.mtable th, .mtable td { padding: 10px 8px; text-align: center; border-top: 1px solid var(--line); }
-.mtable thead th { border-top: 0; background: var(--bg); font-size: 12px; color: var(--muted); font-weight: 900; }
-.mtable td.ok { color: var(--ok); font-weight: 900; background: var(--ok-soft); }
-.mtable td.ng { color: var(--ng); font-weight: 700; }
-.mtable + .hint { margin-bottom: 16px; }
+.ng-box { margin-top: 14px; border: 2px solid var(--ng); background: #fff6f6; border-radius: 16px; padding: 14px 16px; }
+.ng-title { font-weight: 900; color: var(--ng); font-size: 16px; margin-bottom: 6px; }
+.ng-box ul { list-style: none; margin: 0; padding: 0; }
+.ng-box li { padding: 9px 0 9px 22px; border-top: 1px solid #f6d3d4; position: relative; line-height: 1.5; }
+.ng-box li:first-child { border-top: 0; }
+.ng-box li::before { content: "✕"; position: absolute; left: 0; top: 9px; color: var(--ng); font-weight: 900; }
+.ng-box li b { display: block; font-size: 15.5px; }
+.ng-box li small { display: block; font-size: 13.5px; color: var(--ink-2); margin-top: 2px; }
+.ng-box a { color: var(--ng); font-weight: 700; }
+.ok-line { margin: 10px 0 0; padding: 12px 14px; border-radius: 12px; background: var(--ok-soft); font-size: 15px; line-height: 1.6; }
 
-details.faq summary { justify-content: space-between; line-height: 1.5; }
-details.faq .acc-body { font-size: 14px; color: var(--ink-2); line-height: 1.75; }
+/* ---- filming tips ---- */
+.tips { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.tips li { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 14px; background: var(--bg); }
+.tips span { font-size: 22px; line-height: 1; flex: none; }
+.tips p { margin: 0; font-size: 14px; line-height: 1.45; }
 
-.wrap > .btn { margin: 4px 0 0; }
-.btn .arrow { font-size: 15px; }
+/* ---- upload steps ---- */
+.guide ol.steps strong { font-size: 16.5px; }
+.guide ol.steps .d { font-size: 15px; line-height: 1.7; }
+.step-btn { display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 12px 14px; border-radius: 12px; background: var(--accent); color: #fff !important; text-decoration: none; font-weight: 700; font-size: 15px; text-align: center; }
+.step-btn.dark { background: var(--ink); }
+.why { background: var(--warn-soft); border-radius: 14px; padding: 12px 14px; font-size: 15px; line-height: 1.7; margin: 0 0 18px; }
+.choice2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.c2 { border: 1.5px solid var(--line); border-radius: 14px; padding: 12px; background: #fff; line-height: 1.45; }
+.c2.rec { border-color: #9fdcbf; background: var(--ok-soft); }
+.c2 .badge { display: inline-block; margin-bottom: 6px; }
+.c2 .badge:not(.ok) { background: var(--bg); color: var(--ink-2); }
+.c2 > b { display: block; font-size: 14.5px; }
+.c2 p { margin: 4px 0 0; font-size: 13px; color: var(--ink-2); }
+@media (max-width: 360px) { .choice2 { grid-template-columns: 1fr; } }
+
+.tag-box { margin-top: 22px; padding: 16px; border-radius: 16px; background: var(--accent-soft); }
+.tag-box .gh3 { margin-top: 0; }
+.tag-box .copy-all { margin: 0 0 10px; font-size: 16px; padding: 14px; }
+.tag-box .tag { background: #fff; }
+
+/* ---- both platforms ---- */
+.judge { display: grid; gap: 8px; }
+.j { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 4px 12px; padding: 12px 14px; border-radius: 14px; }
+.j.ok { background: var(--ok-soft); }
+.j.ng { background: var(--ng-soft); }
+.j .jm { grid-row: span 2; font-size: 24px; line-height: 1; }
+.j p { margin: 0; font-size: 14.5px; line-height: 1.5; }
+.j .jr { font-size: 15px; font-weight: 900; }
+.j.ok .jr { color: var(--ok); }
+.j.ng .jr { color: var(--ng); }
+
+details.faq summary { justify-content: space-between; line-height: 1.5; font-size: 15.5px; }
+details.faq .acc-body { font-size: 15px; color: var(--ink-2); line-height: 1.75; }
 
 /* link card to this page from ko.html / ja.html */
 .guide-link { display: flex; align-items: center; gap: 12px; background: var(--card); border: 2px solid var(--ink); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 16px; text-decoration: none; color: var(--ink); }
@@ -56,3 +84,12 @@ details.faq .acc-body { font-size: 14px; color: var(--ink-2); line-height: 1.75;
 .guide-link small { display: block; color: var(--muted); font-size: 13px; }
 .guide-link .go { flex: none; font-size: 20px; }
 .guide-link:hover { border-color: var(--accent); }
+
+@media (max-width: 480px) {
+  .guide { font-size: 16px; }
+  .guide section.card { padding: 22px 16px; }
+  .guide h2 { font-size: 19px; }
+  .quick3 a { padding: 14px 4px 12px; }
+  .quick3 b { font-size: 14px; }
+  .key b { font-size: 16.5px; }
+}
