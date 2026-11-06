@@ -102,13 +102,18 @@
   if (list) {
     var boxes = list.querySelectorAll('input[type=checkbox]');
     var prog = document.querySelector('.progress');
+    // 화면에 보이는 항목만 센다 (플랫폼 선택으로 숨겨진 항목 제외)
     function upd() {
-      var n = 0; boxes.forEach(function (b) { if (b.checked) n++; });
-      prog.querySelector('.track i').style.width = (n / boxes.length * 100) + '%';
-      prog.querySelector('.txt').textContent = T.progress(n, boxes.length);
-      prog.classList.toggle('done', n === boxes.length);
+      var shown = [], n = 0;
+      boxes.forEach(function (b) { if (b.closest('li').offsetParent !== null) shown.push(b); });
+      shown.forEach(function (b) { if (b.checked) n++; });
+      var total = shown.length || 1;
+      prog.querySelector('.track i').style.width = (n / total * 100) + '%';
+      prog.querySelector('.txt').textContent = T.progress(n, shown.length);
+      prog.classList.toggle('done', shown.length > 0 && n === shown.length);
     }
     boxes.forEach(function (b) { b.addEventListener('change', upd); });
+    document.addEventListener('platchange', upd);
     upd();
   }
 
