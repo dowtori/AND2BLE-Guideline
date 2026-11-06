@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=20261105d">
-<link rel="stylesheet" href="guide.css?v=20261106d">
+<link rel="stylesheet" href="guide.css?v=20261106e">
 </head>
 <body class="guide">
 <div class="wrap">
@@ -96,12 +96,16 @@
   </section>
 
   <!-- ===== 2. 업로드 ===== -->
-  <section class="card" id="upload">
+  <section class="card" id="upload" data-tab="tt">
     <h2><span class="num">2</span>업로드 방법</h2>
-    <p class="lead for-both">TikTok과 Instagram은 <b>음원 넣는 방법이 달라요.</b></p>
+    <p class="lead for-both">TikTok과 Instagram은 <b>음원 넣는 방법이 달라요.</b> 탭을 눌러 확인해 주세요.</p>
+    <div class="up-tabs for-both" role="tablist">
+      <button type="button" role="tab" data-up="tt" aria-selected="true">TikTok</button>
+      <button type="button" role="tab" data-up="ig" aria-selected="false">Instagram</button>
+    </div>
 
-    <div class="plat-block for-tt">
-      <div class="plat-h"><span class="pill">TikTok</span>의 경우</div>
+    <div class="plat-block tt for-tt">
+      <div class="plat-h">TikTok 업로드 방법</div>
       <ol class="steps">
         <li><strong>공식 음원 열기</strong><span class="d">아래 버튼으로 공식 음원을 열고 <b>'이 사운드 사용'</b>을 눌러서 그대로 촬영해요.</span>
           <a class="step-btn" href="https://www.tiktok.com/music/French-Kissing-7694241938173904902" target="_blank" rel="noopener">TikTok 공식 음원 열기 ↗</a></li>
@@ -110,8 +114,8 @@
       </ol>
     </div>
 
-    <div class="plat-block for-ig">
-      <div class="plat-h"><span class="pill">Instagram</span>의 경우</div>
+    <div class="plat-block ig for-ig">
+      <div class="plat-h">Instagram 업로드 방법</div>
       <p class="why">Instagram 공식 음원은 춤추는 구간과 <b>시작 위치가 달라요</b>. 그래서 <b>저희가 드리는 mp3 음원</b>을 사용해 주세요.</p>
       <ol class="steps">
         <li><strong>mp3 음원으로 영상 만들기</strong><span class="d">둘 중 편한 방법으로 하면 돼요.</span>
@@ -222,6 +226,6 @@
 </nav>
 
 <script src="app.js?v=20261106d"></script>
-<script src="guide.js?v=20261106d"></script>
+<script src="guide.js?v=20261106e"></script>
 </body>
 </html>

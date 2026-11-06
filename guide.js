@@ -20,3 +20,16 @@
   });
   if (saved) apply(saved);
 })();
+
+// 업로드 방법: 두 곳 다 보일 때는 TikTok / Instagram 탭으로 나눠서 하나씩 보여 준다.
+(function () {
+  var up = document.getElementById('upload');
+  if (!up) return;
+  var btns = up.querySelectorAll('[data-up]');
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      up.setAttribute('data-tab', b.getAttribute('data-up'));
+      btns.forEach(function (x) { x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+    });
+  });
+})();

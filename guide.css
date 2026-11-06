@@ -115,9 +115,25 @@ details.faq .acc-body { font-size: 15px; color: var(--ink-2); line-height: 1.75;
 .rw { display: none; }
 body:not([data-plat]) .rw.r-none, [data-plat="tt"] .rw.r-tt, [data-plat="ig"] .rw.r-ig, [data-plat="both"] .rw.r-both { display: inline; }
 
-.plat-block + .plat-block { margin-top: 26px; padding-top: 22px; border-top: 1px dashed var(--line); }
-.plat-h { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 900; margin: 0 0 14px; }
-.plat-h .pill { font-size: 12px; padding: 2px 10px; border-width: 1.5px; }
+/* upload: one platform at a time */
+.up-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--bg); padding: 5px; border-radius: 14px; margin-bottom: 14px; }
+.up-tabs button { appearance: none; border: 0; cursor: pointer; font: inherit; font-weight: 900; font-size: 15px; min-height: 46px; border-radius: 10px; background: transparent; color: var(--muted); }
+.up-tabs button[data-up="tt"][aria-selected="true"] { background: #111; color: #fff; }
+.up-tabs button[data-up="ig"][aria-selected="true"] { background: linear-gradient(90deg, #f58529, #dd2a7b 55%, #8134af); color: #fff; }
+body:not([data-plat]) #upload[data-tab="tt"] .plat-block.ig,
+[data-plat="both"] #upload[data-tab="tt"] .plat-block.ig,
+body:not([data-plat]) #upload[data-tab="ig"] .plat-block.tt,
+[data-plat="both"] #upload[data-tab="ig"] .plat-block.tt { display: none; }
+
+.plat-block { border: 1.5px solid var(--line); border-radius: 18px; overflow: hidden; }
+.plat-block > :not(.plat-h) { margin-left: 16px; margin-right: 16px; }
+.plat-block > .steps { margin-top: 16px; margin-bottom: 16px; }
+.plat-block > .ex-link { margin-bottom: 10px; }
+.plat-h { font-size: 16px; font-weight: 900; color: #fff; padding: 12px 16px; margin: 0 0 16px; }
+.plat-block.tt .plat-h { background: #111; }
+.plat-block.ig .plat-h { background: linear-gradient(90deg, #f58529, #dd2a7b 55%, #8134af); }
+.plat-block.ig .plat-h + .why { margin-top: 0; }
+@media (max-width: 480px) { .plat-block > :not(.plat-h) { margin-left: 12px; margin-right: 12px; } }
 
 /* collapsible video / examples */
 details.more { margin-top: 14px; border: 1.5px solid var(--line); border-radius: 14px; overflow: hidden; }

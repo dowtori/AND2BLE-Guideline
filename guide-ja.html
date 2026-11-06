@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=20261105d">
-<link rel="stylesheet" href="guide.css?v=20261106d">
+<link rel="stylesheet" href="guide.css?v=20261106e">
 </head>
 <body class="guide">
 <div class="wrap">
@@ -96,12 +96,16 @@
   </section>
 
   <!-- ===== 2. 投稿 ===== -->
-  <section class="card" id="upload">
+  <section class="card" id="upload" data-tab="tt">
     <h2><span class="num">2</span>投稿のしかた</h2>
-    <p class="lead for-both">TikTok と Instagram で<b>音源の付け方が違います。</b></p>
+    <p class="lead for-both">TikTok と Instagram で<b>音源の付け方が違います。</b>タブで切り替えてください。</p>
+    <div class="up-tabs for-both" role="tablist">
+      <button type="button" role="tab" data-up="tt" aria-selected="true">TikTok</button>
+      <button type="button" role="tab" data-up="ig" aria-selected="false">Instagram</button>
+    </div>
 
-    <div class="plat-block for-tt">
-      <div class="plat-h"><span class="pill">TikTok</span>の場合</div>
+    <div class="plat-block tt for-tt">
+      <div class="plat-h">TikTok の投稿方法</div>
       <ol class="steps">
         <li><strong>公式音源を開く</strong><span class="d">下のボタンから公式音源を開いて、<b>「この楽曲を使う」</b>をタップ。そのまま撮影します。</span>
           <a class="step-btn" href="https://www.tiktok.com/music/French-Kissing-7694241938173904902" target="_blank" rel="noopener">TikTok 公式音源を開く ↗</a></li>
@@ -110,8 +114,8 @@
       </ol>
     </div>
 
-    <div class="plat-block for-ig">
-      <div class="plat-h"><span class="pill">Instagram</span>の場合</div>
+    <div class="plat-block ig for-ig">
+      <div class="plat-h">Instagram の投稿方法</div>
       <p class="why">Instagram の公式音源は、踊る部分と<b>はじまる位置がちがいます</b>。なので、<b>こちらで用意した mp3 音源</b>を使ってください。</p>
       <ol class="steps">
         <li><strong>mp3 音源で動画をつくる</strong><span class="d">どちらかの方法でOKです。</span>
@@ -222,6 +226,6 @@
 </nav>
 
 <script src="app.js?v=20261106d"></script>
-<script src="guide.js?v=20261106d"></script>
+<script src="guide.js?v=20261106e"></script>
 </body>
 </html>
