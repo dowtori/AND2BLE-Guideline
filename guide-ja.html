@@ -18,9 +18,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=20261105d">
-<link rel="stylesheet" href="guide.css?v=20261106e">
+<link rel="stylesheet" href="guide.css?v=20261106f">
 </head>
 <body class="guide">
+<div class="plat-sticky" id="platSticky"><span class="ps-label">投稿先</span><div class="plat-opts mini" role="radiogroup" aria-label="投稿先"><label><input type="radio" name="plat3" value="tt" data-plat-input><span>TikTok</span></label><label><input type="radio" name="plat3" value="ig" data-plat-input><span>Instagram</span></label><label><input type="radio" name="plat3" value="both" data-plat-input><span>両方</span></label></div></div>
 <div class="wrap">
 
   <div class="topbar">
@@ -40,11 +41,7 @@
   <section class="picker" id="pick">
     <h2>どこに投稿しますか？</h2>
     <p>選ぶと、必要な説明だけが表示されます。</p>
-    <div class="plat-opts" role="radiogroup" aria-label="投稿先">
-      <label><input type="radio" name="plat" value="tt"><span>TikTok<small>だけ</small></span></label>
-      <label><input type="radio" name="plat" value="ig"><span>Instagram<small>だけ</small></span></label>
-      <label><input type="radio" name="plat" value="both"><span>両方<small>TikTok + Instagram</small></span></label>
-    </div>
+    <div class="plat-opts" role="radiogroup" aria-label="投稿先"><label><input type="radio" name="plat" value="tt" data-plat-input><span>TikTok<small>だけ</small></span></label><label><input type="radio" name="plat" value="ig" data-plat-input><span>Instagram<small>だけ</small></span></label><label><input type="radio" name="plat" value="both" data-plat-input><span>両方<small>TikTok + Instagram</small></span></label></div>
   </section>
 
   <!-- ===== やることは3つ ===== -->
@@ -182,6 +179,10 @@
   <section class="card" id="check">
     <h2><span class="num">✓</span>投稿前の最終チェック</h2>
     <p class="lead">投稿ボタンを押す前に、タップして確認しましょう。</p>
+    <div class="picker-inline" id="pick2">
+      <p>チェックする投稿先を選んでください</p>
+      <div class="plat-opts mini" role="radiogroup" aria-label="投稿先"><label><input type="radio" name="plat2" value="tt" data-plat-input><span>TikTok</span></label><label><input type="radio" name="plat2" value="ig" data-plat-input><span>Instagram</span></label><label><input type="radio" name="plat2" value="both" data-plat-input><span>両方</span></label></div>
+    </div>
     <ul class="checklist">
       <li><label><input type="checkbox"><span class="box"></span><span class="t"><b>0:16〜0:36 を踊った</b></span></label></li>
       <li><label><input type="checkbox"><span class="box"></span><span class="t"><b>振付はお手本どおり</b><small>変えていいのは最後の1〜2秒の決めポーズだけ</small></span></label></li>
@@ -226,6 +227,6 @@
 </nav>
 
 <script src="app.js?v=20261106d"></script>
-<script src="guide.js?v=20261106e"></script>
+<script src="guide.js?v=20261106f"></script>
 </body>
 </html>
