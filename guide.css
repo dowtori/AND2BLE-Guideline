@@ -168,7 +168,7 @@ details.more[open] > summary { border-bottom: 1px solid var(--line); }
 .start-reward b.amt { color: var(--accent-dark); font-size: 17px; }
 
 /* ---------- 선택했을 때 바뀐 것이 눈에 보이게 ---------- */
-.pick-now { margin: 12px 0 0; padding: 10px 12px; border-radius: 12px; background: var(--paper, #f5f1ea); color: var(--muted); font-size: 13px; font-weight: 700; line-height: 1.45; text-align: center; }
+.picker .pick-now { margin: 16px 0 0; padding: 10px 12px; border-radius: 12px; background: var(--paper, #f5f1ea); color: var(--muted); font-size: 13px; font-weight: 700; line-height: 1.45; text-align: center; }
 .pick-now b { display: block; font-size: 15px; font-weight: 900; }
 [data-plat] .pick-now { background: var(--accent-soft); color: var(--ink); }
 [data-plat] .pick-now b { color: var(--accent); }
