@@ -4,13 +4,48 @@
   var KEY = 'and2ble_plat';
   var inputs = document.querySelectorAll('[data-plat-input]');
 
+  var ja = document.documentElement.lang !== 'ko';
+  var NAME = ja ? { tt: 'TikTok', ig: 'Instagram', both: 'TikTok・Instagram 両方' }
+                : { tt: 'TikTok', ig: 'Instagram', both: 'TikTok·Instagram 둘 다' };
+  var MSG = ja ? {
+    none: '選ぶと、下の説明がその投稿先用に切り替わります',
+    now: function (n) { return '<b>' + n + '用の説明に切り替えました</b>必要な説明だけを下に表示しています'; },
+    toast: function (n) { return n + '用の説明に切り替えました'; }
+  } : {
+    none: '고르면 아래 설명이 그 플랫폼에 맞게 바뀌어요',
+    now: function (n) { return '<b>' + n + ' 기준 안내로 바뀌었어요</b>필요한 내용만 아래에 보여 드려요'; },
+    toast: function (n) { return n + ' 기준 안내로 바뀌었어요'; }
+  };
+  var now = document.querySelector('.pick-now');
+  var toast = document.querySelector('.toast');
+  var toastTimer;
+
+  function replay(el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
+
+  // 선택이 바뀐 걸 확실히 보여 준다: 상태 문구, 카드 반짝임, 하단 알림
+  function feedback(v) {
+    replay(now, 'flash');
+    document.querySelectorAll('.wrap > section.card, .start-reward').forEach(function (el) {
+      if (el.offsetParent !== null) replay(el, 'plat-swap');
+    });
+    if (toast) {
+      toast.textContent = MSG.toast(NAME[v]);
+      toast.style.background = '';
+      toast.classList.add('plat', 'show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toast.classList.remove('show', 'plat'); }, 2000);
+    }
+  }
+
   function apply(v, save) {
     if (!v) return;
     document.body.setAttribute('data-plat', v);
     inputs.forEach(function (i) { i.checked = i.value === v; });
-    if (save) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    if (now) now.innerHTML = MSG.now(NAME[v]);
+    if (save) { try { localStorage.setItem(KEY, v); } catch (e) {} feedback(v); }
     document.dispatchEvent(new Event('platchange'));
   }
+  if (now) now.textContent = MSG.none;
 
   inputs.forEach(function (i) {
     i.addEventListener('change', function () { if (i.checked) apply(i.value, true); });
