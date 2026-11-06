@@ -57,19 +57,19 @@
 
   // 상단 고정 바: 원래 선택 카드와 체크리스트 위 선택지가 둘 다 화면 밖일 때만 보인다.
   var bar = document.getElementById('platSticky');
-  var watch = [document.getElementById('pick'), document.getElementById('pick2')].filter(Boolean);
-  if (bar && watch.length && 'IntersectionObserver' in window) {
-    var seen = {};
-    var pastFirst = false;
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        seen[en.target.id] = en.isIntersecting;
-        if (en.target.id === 'pick') pastFirst = !en.isIntersecting && en.boundingClientRect.top < 0;
-      });
-      var anyVisible = watch.some(function (el) { return seen[el.id]; });
-      bar.classList.toggle('show', pastFirst && !anyVisible);
-    });
-    watch.forEach(function (el) { io.observe(el); });
+  // 원래 선택 카드를 지나간 뒤부터 '업로드 전 최종 체크'의 선택지가 화면에 들어오기 전까지 계속 보인다.
+  var pick = document.getElementById('pick');
+  var pick2 = document.getElementById('pick2');
+  if (bar && pick) {
+    var update = function () {
+      var past = pick.getBoundingClientRect().bottom < 0;
+      var before = !pick2 || pick2.getBoundingClientRect().top > window.innerHeight - 90;
+      bar.classList.toggle('show', past && before);
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    document.addEventListener('platchange', update);
+    update();
   }
 })();
 
