@@ -37,9 +37,28 @@
     }
   }
 
+  // 보던 위치 유지: 바꾸기 전에 화면 위쪽에 있던 섹션을 기억했다가, 바꾼 뒤 같은 자리에 다시 맞춘다.
+  document.documentElement.style.overflowAnchor = 'none';
+  function anchorSection() {
+    var list = document.querySelectorAll('.wrap > section');
+    for (var k = 0; k < list.length; k++) {
+      var r = list[k].getBoundingClientRect();
+      if (list[k].offsetParent !== null && r.bottom > 120) return { el: list[k], top: r.top };
+    }
+    return null;
+  }
+
   function apply(v, save) {
     if (!v) return;
+    var a = save ? anchorSection() : null;
     document.body.setAttribute('data-plat', v);
+    if (a) {
+      var html = document.documentElement, sb = html.style.scrollBehavior;
+      html.style.scrollBehavior = 'auto';
+      if (a.el.offsetParent !== null) window.scrollBy(0, a.el.getBoundingClientRect().top - a.top);
+      else { var up = document.getElementById('upload'); if (up) window.scrollTo(0, up.getBoundingClientRect().top + window.scrollY - 110); }
+      html.style.scrollBehavior = sb;
+    }
     inputs.forEach(function (i) { i.checked = i.value === v; });
     if (now) now.innerHTML = MSG.now(NAME[v]);
     if (save) { try { localStorage.setItem(KEY, v); } catch (e) {} feedback(v); }
@@ -55,15 +74,14 @@
   try { saved = localStorage.getItem(KEY); } catch (e) {}
   if (saved) apply(saved, false);
 
-  // 상단 고정 바: 원래 선택 카드와 체크리스트 위 선택지가 둘 다 화면 밖일 때만 보인다.
+  // 상단 고정 바: 원래 선택 카드를 지나간 뒤부터 '업로드 전 최종 체크' 섹션이 화면 위쪽에 닿기 전까지 계속 보인다.
   var bar = document.getElementById('platSticky');
-  // 원래 선택 카드를 지나간 뒤부터 '업로드 전 최종 체크'의 선택지가 화면에 들어오기 전까지 계속 보인다.
   var pick = document.getElementById('pick');
-  var pick2 = document.getElementById('pick2');
+  var pick2 = document.getElementById('check');
   if (bar && pick) {
     var update = function () {
       var past = pick.getBoundingClientRect().bottom < 0;
-      var before = !pick2 || pick2.getBoundingClientRect().top > window.innerHeight - 90;
+      var before = !pick2 || pick2.getBoundingClientRect().top > 140;
       bar.classList.toggle('show', past && before);
     };
     window.addEventListener('scroll', update, { passive: true });
