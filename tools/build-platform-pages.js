@@ -93,6 +93,9 @@ for (const lang of ['ja', 'ko']) {
       return a + keep.join('') + z;
     }, 'agree items');
 
+    // 전용 페이지에서는 '~만 참여 / ~のみ' 대신 '~ 참여 / ~で参加'
+    rep(new RegExp(p + ' ?(만 참여|のみ参加|のみ)<', 'g'), lang === 'ko' ? `${p} 참여<` : `${p} で参加<`, 'only label');
+
     fs.writeFileSync(path.join(root, `${lang}-${plat}.html`), s);
     console.log('wrote', `${lang}-${plat}.html`);
   }
