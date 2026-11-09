@@ -56,7 +56,7 @@ for (const lang of ['ja', 'ko']) {
     rep(/(<meta property="og:title" content=")[^"]*/, `$1${t.ogTitle(p)}`, 'og:title');
     rep(/(<meta property="og:description" content=")[^"]*/, `$1${t.ogDesc(p)}`, 'og:description');
     rep(/(<meta property="og:url" content="[^"]*\/)(ja|ko)\.html/, `$1$2-${plat}.html`, 'og:url');
-    rep(/<link rel="stylesheet" href="guide\.css\?v=[^"]*">/, '<link rel="stylesheet" href="guide.css?v=20261109b">', 'guide.css');
+    rep(/<link rel="stylesheet" href="guide\.css\?v=[^"]*">/, '<link rel="stylesheet" href="guide.css?v=20261109c">', 'guide.css');
 
     // 언어 전환은 같은 플랫폼 페이지로
     rep(/href="ja\.html" data-lang/, `href="ja-${plat}.html" data-lang`, 'lang ja');
@@ -80,8 +80,9 @@ for (const lang of ['ja', 'ko']) {
     const guideHref = plat === 'ig'
       ? `https://and2ble-instagram-guide.vercel.app/?lang=${lang}`
       : `guide-${plat}-${lang}.html`;
-    rep(/<a class="guide-link" href="guide-(ja|ko)\.html"><span class="tx"><b>([^<]*)<\/b><small>[^<]*<\/small>/,
-      `<a class="guide-link" href="${guideHref}"><span class="tx"><b>${t.guideTitle(p)}</b><small>${t.guideSmall}</small>`, 'guide link');
+    // 기본 페이지의 음원 링크 두 개(guide-links)를 이 플랫폼용 링크 하나로 바꾼다.
+    rep(/    <div class="guide-links">\n[\s\S]*?\n    <\/div>\n/,
+      `    <a class="guide-link" href="${guideHref}"${plat === 'ig' ? ' target="_blank" rel="noopener"' : ''}><span class="tx"><b>${t.guideTitle(p)}</b><small>${t.guideSmall}</small></span><span class="go">${plat === 'ig' ? '↗' : '→'}</span></a>\n`, 'guide link');
 
     // TikTok 전용: 안무 섹션에 공식 음원 링크
     if (plat === 'tt') {

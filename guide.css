@@ -86,6 +86,8 @@ details.faq .acc-body { font-size: 15px; color: var(--ink-2); line-height: 1.75;
 .guide-link small { display: block; color: var(--muted); font-size: 13px; }
 .guide-link .go { flex: none; font-size: 20px; }
 .guide-link:hover { border-color: var(--accent); }
+.guide-links { display: grid; gap: 10px; margin-bottom: 16px; }
+.guide-links .guide-link { margin-bottom: 0; }
 
 @media (max-width: 480px) {
   .guide { font-size: 16px; }
