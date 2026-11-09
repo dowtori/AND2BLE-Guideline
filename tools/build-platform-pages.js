@@ -71,8 +71,12 @@ for (const lang of ['ja', 'ko']) {
 
 
     // 상세 가이드 링크 → 같은 플랫폼 전용 상세 가이드
+    // Instagram 은 별도 사이트(and2ble-instagram-guide)의 가이드를 쓴다.
+    const guideHref = plat === 'ig'
+      ? `https://and2ble-instagram-guide.vercel.app/?lang=${lang}`
+      : `guide-${plat}-${lang}.html`;
     rep(/<a class="guide-link" href="guide-(ja|ko)\.html"><span class="tx"><b>([^<]*)<\/b><small>[^<]*<\/small>/,
-      `<a class="guide-link" href="guide-${plat}-$1.html"><span class="tx"><b>${t.guideTitle(p)}</b><small>${t.guideSmall}</small>`, 'guide link');
+      `<a class="guide-link" href="${guideHref}"><span class="tx"><b>${t.guideTitle(p)}</b><small>${t.guideSmall}</small>`, 'guide link');
 
     // 리워드: 해당 플랫폼 한 줄만
     rep(/(<section class="card" id="reward">[\s\S]*?<p class="lead">)[^<]*(<\/p>)/, `$1${t.rewardLead(p)}$2`, 'reward lead');
