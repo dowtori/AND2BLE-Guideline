@@ -199,3 +199,9 @@ details.more[open] > summary { border-bottom: 1px solid var(--line); }
 .after-post li span { display: block; font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
 .contact-box { margin-top: 16px; background: var(--accent-soft); border-radius: 14px; padding: 14px 16px; font-size: 14px; line-height: 1.7; }
 .contact-box b { display: block; font-size: 15px; }
+
+/* 플랫폼 전용 가이드: 어떤 플랫폼용 페이지인지 표시 */
+.plat-only { margin: 0 0 16px; padding: 14px 16px; border-radius: var(--radius); color: #fff; font-size: 13.5px; line-height: 1.6; text-align: center; }
+.plat-only b { display: block; font-size: 16px; font-weight: 900; }
+.plat-only.tt { background: #111; }
+.plat-only.ig { background: linear-gradient(45deg, #f58529, #dd2a7b 55%, #8134af); }

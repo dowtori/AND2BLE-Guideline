@@ -70,8 +70,11 @@
     i.addEventListener('change', function () { if (i.checked) apply(i.value, true); });
   });
 
+  // 플랫폼 전용 가이드(guide-tt-*, guide-ig-*)는 data-plat-lock 으로 고정되어 저장된 선택을 쓰지 않는다.
   var saved = null;
-  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  if (!document.body.hasAttribute('data-plat-lock')) {
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+  }
   if (saved) apply(saved, false);
 
   // 상단 고정 바: 원래 선택 카드를 지나간 뒤부터 '업로드 전 최종 체크' 섹션이 화면 위쪽에 닿기 전까지 계속 보인다.
