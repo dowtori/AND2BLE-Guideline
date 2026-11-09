@@ -3,9 +3,9 @@
  *
  * 저장 위치: 아래 SPREADSHEET_ID 시트
  *   - 기본 모집 페이지(ja.html / ko.html)        → gid=1002 탭
- *   - TikTok 모집 페이지(ja-tt.html / ko-tt.html)   → 'TikTok 모집' 탭
- *   - Instagram 모집 페이지(ja-ig.html / ko-ig.html) → 'Instagram 모집' 탭
- *   TikTok / Instagram 탭은 없으면 첫 신청이 들어올 때 자동으로 만들어진다.
+ *   - TikTok / Instagram 모집 페이지(ja-tt, ko-tt, ja-ig, ko-ig) → '틱톡/인스타 개별모집' 탭 (gid=179908666)
+ *     두 플랫폼이 한 탭에 같이 쌓이고, '참여 방식' 칸으로 구분한다.
+ *     탭이 비어 있으면 첫 신청 때 제목 행이 자동으로 들어간다.
  * (https://docs.google.com/spreadsheets/d/1T1i3U-lNK0yE0dv0L_adKKv5OOw5NY-BT8PGSDDyWYU/edit?gid=1002)
  *
  * 기존 Apps Script 를 그대로 쓰는 경우 (웹 앱 주소가 바뀌지 않음)
@@ -15,23 +15,18 @@
  */
 
 var SPREADSHEET_ID = '1T1i3U-lNK0yE0dv0L_adKKv5OOw5NY-BT8PGSDDyWYU';
-var SHEET_GID = 1002; // 응답이 들어올 탭 (주소의 gid 값)
-// 플랫폼 전용 모집 페이지에서 온 신청이 들어갈 탭 이름 (페이지가 보내는 source 값 기준)
-var SOURCE_TABS = { tt: 'TikTok 모집', ig: 'Instagram 모집' };
+var SHEET_GID = 1002;           // 기본 모집 페이지 신청이 들어올 탭 (주소의 gid 값)
+var PLATFORM_SHEET_GID = 179908666; // TikTok / Instagram 전용 모집 페이지 신청이 함께 들어올 탭 ('틱톡/인스타 개별모집')
 var HEADERS = ['제출 시각', '언어', '이름', '이메일', '연락처', '참여 방식', 'TikTok', 'Instagram', '업로드 예정일', '기프트카드'];
 
+// 탭은 gid 로 찾기 때문에 탭 이름을 바꿔도 계속 같은 탭에 들어간다.
 function getTargetSheet_(source) {
-  var name = SOURCE_TABS[source];
-  if (name) {
-    var ss0 = SpreadsheetApp.openById(SPREADSHEET_ID);
-    return ss0.getSheetByName(name) || ss0.insertSheet(name);
-  }
-  var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  var sheets = ss.getSheets();
+  var gid = (source === 'tt' || source === 'ig') ? PLATFORM_SHEET_GID : SHEET_GID;
+  var sheets = SpreadsheetApp.openById(SPREADSHEET_ID).getSheets();
   for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i].getSheetId() === SHEET_GID) return sheets[i];
+    if (sheets[i].getSheetId() === gid) return sheets[i];
   }
-  throw new Error('gid ' + SHEET_GID + ' 탭을 찾을 수 없습니다.');
+  throw new Error('gid ' + gid + ' 탭을 찾을 수 없습니다.');
 }
 
 function doPost(e) {
@@ -68,8 +63,7 @@ function doPost(e) {
 // 편집기에서 한 번 실행해 보면 권한 허용 + 탭 연결을 미리 확인할 수 있다.
 function testTarget() {
   Logger.log('기본 탭: ' + getTargetSheet_().getName());
-  Logger.log('TikTok 탭: ' + getTargetSheet_('tt').getName());
-  Logger.log('Instagram 탭: ' + getTargetSheet_('ig').getName());
+  Logger.log('TikTok / Instagram 탭: ' + getTargetSheet_('tt').getName());
 }
 
 // [한 번만 실행] 2~24행(11/5 오후 6시 이전에 들어온 23건)의 제출 시각이 9시간 앞서 있어서,
