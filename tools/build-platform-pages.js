@@ -15,7 +15,9 @@ const L = {
     where: { tt: 'TikTok', ig: 'Instagram リール' },
     reward: '¥5,000 相当',
     rewardLead: p => `${p} に投稿すると、下のリワードを受け取れます。`,
-    only: p => `<b>${p} に投稿する方向けのページです</b>`
+    only: p => `<b>${p} に投稿する方向けのページです</b>`,
+    guideTitle: p => `${p} 詳細ガイドラインを見る`,
+    guideSmall: '撮影・投稿方法・チェックリスト・FAQ'
   },
   ko: {
     name: { tt: 'TikTok', ig: 'Instagram' },
@@ -25,7 +27,9 @@ const L = {
     where: { tt: 'TikTok', ig: 'Instagram 릴스' },
     reward: '¥5,000 상당',
     rewardLead: p => `${p}에 업로드하면 아래 리워드를 받을 수 있어요.`,
-    only: p => `<b>${p}에 올리는 분을 위한 페이지예요</b>`
+    only: p => `<b>${p}에 올리는 분을 위한 페이지예요</b>`,
+    guideTitle: p => `${p} 상세 가이드라인 보기`,
+    guideSmall: '촬영 · 업로드 방법 · 체크리스트 · FAQ'
   }
 };
 
@@ -65,6 +69,10 @@ for (const lang of ['ja', 'ko']) {
       return m;
     }, 'summary rows');
 
+
+    // 상세 가이드 링크 → 같은 플랫폼 전용 상세 가이드
+    rep(/<a class="guide-link" href="guide-(ja|ko)\.html"><span class="tx"><b>([^<]*)<\/b><small>[^<]*<\/small>/,
+      `<a class="guide-link" href="guide-${plat}-$1.html"><span class="tx"><b>${t.guideTitle(p)}</b><small>${t.guideSmall}</small>`, 'guide link');
 
     // 리워드: 해당 플랫폼 한 줄만
     rep(/(<section class="card" id="reward">[\s\S]*?<p class="lead">)[^<]*(<\/p>)/, `$1${t.rewardLead(p)}$2`, 'reward lead');
