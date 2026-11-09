@@ -189,6 +189,8 @@
     var d = form.querySelector('input[name=date]:checked');
     return {
       lang: lang,
+      // 어느 모집 페이지에서 왔는지: main(기본) / tt(TikTok 전용) / ig(Instagram 전용) → 시트 탭을 나눈다
+      source: form.getAttribute('data-source') || 'main',
       name: field('name').value.trim(),
       email: field('email').value.trim(),
       contact: field('contact').value.trim(),

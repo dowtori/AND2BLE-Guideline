@@ -78,6 +78,9 @@ for (const lang of ['ja', 'ko']) {
     rep(/  <!-- ===== [^=]*===== -->\n  <section class="card" id="mirror">[\s\S]*?<\/section>\n\n/, '', 'mirror section');
     rep(/  <a href="#mirror">[\s\S]*?<\/a>\n/, '', 'fnav mirror');
 
+    // 신청 폼: 시트에서 TikTok / Instagram 탭으로 나눠 저장되도록 출처 표시
+    rep(/<form id="applyForm"/, `<form id="applyForm" data-source="${plat}"`, 'form source');
+
     // 신청 폼: 참여 방식은 이 플랫폼 하나로 고정
     rep(/            <label class="choice"><input type="radio" name="platform" value="(tiktok|instagram|both)">[\s\S]*?<\/label>\n/g, (m, v) => {
       if (v !== VAL[plat]) return '';

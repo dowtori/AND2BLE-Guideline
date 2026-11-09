@@ -1,7 +1,11 @@
 /**
  * AND2BLE French Kissing 신청 폼 → Google 시트 저장용 Apps Script
  *
- * 저장 위치: 아래 SPREADSHEET_ID 시트의 gid=1002 탭
+ * 저장 위치: 아래 SPREADSHEET_ID 시트
+ *   - 기본 모집 페이지(ja.html / ko.html)        → gid=1002 탭
+ *   - TikTok 모집 페이지(ja-tt.html / ko-tt.html)   → 'TikTok 모집' 탭
+ *   - Instagram 모집 페이지(ja-ig.html / ko-ig.html) → 'Instagram 모집' 탭
+ *   TikTok / Instagram 탭은 없으면 첫 신청이 들어올 때 자동으로 만들어진다.
  * (https://docs.google.com/spreadsheets/d/1T1i3U-lNK0yE0dv0L_adKKv5OOw5NY-BT8PGSDDyWYU/edit?gid=1002)
  *
  * 기존 Apps Script 를 그대로 쓰는 경우 (웹 앱 주소가 바뀌지 않음)
@@ -12,9 +16,16 @@
 
 var SPREADSHEET_ID = '1T1i3U-lNK0yE0dv0L_adKKv5OOw5NY-BT8PGSDDyWYU';
 var SHEET_GID = 1002; // 응답이 들어올 탭 (주소의 gid 값)
+// 플랫폼 전용 모집 페이지에서 온 신청이 들어갈 탭 이름 (페이지가 보내는 source 값 기준)
+var SOURCE_TABS = { tt: 'TikTok 모집', ig: 'Instagram 모집' };
 var HEADERS = ['제출 시각', '언어', '이름', '이메일', '연락처', '참여 방식', 'TikTok', 'Instagram', '업로드 예정일', '기프트카드'];
 
-function getTargetSheet_() {
+function getTargetSheet_(source) {
+  var name = SOURCE_TABS[source];
+  if (name) {
+    var ss0 = SpreadsheetApp.openById(SPREADSHEET_ID);
+    return ss0.getSheetByName(name) || ss0.insertSheet(name);
+  }
   var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   var sheets = ss.getSheets();
   for (var i = 0; i < sheets.length; i++) {
@@ -28,7 +39,7 @@ function doPost(e) {
   lock.waitLock(10000);
   try {
     var d = JSON.parse(e.postData.contents);
-    var sh = getTargetSheet_();
+    var sh = getTargetSheet_(d.source);
     if (sh.getLastRow() === 0) {
       sh.appendRow(HEADERS);
       sh.setFrozenRows(1);
@@ -56,8 +67,9 @@ function doPost(e) {
 
 // 편집기에서 한 번 실행해 보면 권한 허용 + 탭 연결을 미리 확인할 수 있다.
 function testTarget() {
-  var sh = getTargetSheet_();
-  Logger.log('연결된 탭: ' + sh.getName());
+  Logger.log('기본 탭: ' + getTargetSheet_().getName());
+  Logger.log('TikTok 탭: ' + getTargetSheet_('tt').getName());
+  Logger.log('Instagram 탭: ' + getTargetSheet_('ig').getName());
 }
 
 // [한 번만 실행] 2~24행(11/5 오후 6시 이전에 들어온 23건)의 제출 시각이 9시간 앞서 있어서,
