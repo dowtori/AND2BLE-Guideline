@@ -17,7 +17,9 @@ const L = {
     rewardLead: p => `${p} に投稿すると、下のリワードを受け取れます。`,
     only: p => `<b>${p} に投稿する方向けのページです</b>`,
     guideTitle: p => `${p} 詳細ガイドラインを見る`,
-    guideSmall: '撮影・投稿方法・チェックリスト・FAQ'
+    guideSmall: '撮影・投稿方法・チェックリスト・FAQ',
+    soundTitle: 'TikTok 公式音源を開く',
+    soundSmall: 'この音源を使って投稿してください'
   },
   ko: {
     name: { tt: 'TikTok', ig: 'Instagram' },
@@ -29,11 +31,14 @@ const L = {
     rewardLead: p => `${p}에 업로드하면 아래 리워드를 받을 수 있어요.`,
     only: p => `<b>${p}에 올리는 분을 위한 페이지예요</b>`,
     guideTitle: p => `${p} 상세 가이드라인 보기`,
-    guideSmall: '촬영 · 업로드 방법 · 체크리스트 · FAQ'
+    guideSmall: '촬영 · 업로드 방법 · 체크리스트 · FAQ',
+    soundTitle: 'TikTok 공식 음원 열기',
+    soundSmall: '이 음원으로 업로드해 주세요'
   }
 };
 
 const VAL = { tt: 'tiktok', ig: 'instagram' };
+const SOUND_TT = 'https://www.tiktok.com/music/French-Kissing-7694241938173904902';
 
 for (const lang of ['ja', 'ko']) {
   const src = fs.readFileSync(path.join(root, `${lang}.html`), 'utf8').split('\r\n').join('\n');
@@ -77,6 +82,12 @@ for (const lang of ['ja', 'ko']) {
       : `guide-${plat}-${lang}.html`;
     rep(/<a class="guide-link" href="guide-(ja|ko)\.html"><span class="tx"><b>([^<]*)<\/b><small>[^<]*<\/small>/,
       `<a class="guide-link" href="${guideHref}"><span class="tx"><b>${t.guideTitle(p)}</b><small>${t.guideSmall}</small>`, 'guide link');
+
+    // TikTok 전용: 안무 섹션에 공식 음원 링크
+    if (plat === 'tt') {
+      rep(/(<section class="card" id="dance">[\s\S]*?<p class="lead">[\s\S]*?<\/p>\n)/,
+        `$1    <a class="guide-link" href="${SOUND_TT}" target="_blank" rel="noopener"><span class="tx"><b>${t.soundTitle}</b><small>${t.soundSmall}</small></span><span class="go">↗</span></a>\n`, 'tiktok sound');
+    }
 
     // 리워드: 해당 플랫폼 한 줄만
     rep(/(<section class="card" id="reward">[\s\S]*?<p class="lead">)[^<]*(<\/p>)/, `$1${t.rewardLead(p)}$2`, 'reward lead');
