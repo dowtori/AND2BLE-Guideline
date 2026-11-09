@@ -74,9 +74,7 @@ for (const lang of ['ja', 'ko']) {
       return `<div class="reward-list">\n${keep}\n    </div>`;
     }, 'reward list');
 
-    // 미러링 섹션 · 메뉴 삭제
-    rep(/  <!-- ===== [^=]*===== -->\n  <section class="card" id="mirror">[\s\S]*?<\/section>\n\n/, '', 'mirror section');
-    rep(/  <a href="#mirror">[\s\S]*?<\/a>\n/, '', 'fnav mirror');
+    // 미러링 안내 섹션은 전용 페이지에도 그대로 둔다
 
     // 신청 폼: 시트에서 TikTok / Instagram 탭으로 나눠 저장되도록 출처 표시
     rep(/<form id="applyForm"/, `<form id="applyForm" data-source="${plat}"`, 'form source');
