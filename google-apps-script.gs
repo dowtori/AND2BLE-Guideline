@@ -67,7 +67,13 @@ function doPost(e) {
       safe(d.postDate),
       safe(d.giftCard)
     ]]);
-    sh.getRange(row, srcCol).setValue(SOURCE_LABEL[d.source] || '기본');
+    // '신청 페이지' 칸에 드롭다운이 걸려 있으면 목록에 없는 값은 거부될 수 있다.
+    // 그래도 신청 내용(A~J열)은 이미 저장됐으니, 여기서 실패해도 신청은 성공으로 처리한다.
+    try {
+      sh.getRange(row, srcCol).setValue(SOURCE_LABEL[d.source] || '기본');
+    } catch (labelErr) {
+      console.warn('신청 페이지 칸 기록 실패: ' + labelErr);
+    }
     return json({ ok: true });
   } catch (err) {
     return json({ ok: false, error: String(err) });
