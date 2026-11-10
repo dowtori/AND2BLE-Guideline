@@ -1,32 +1,44 @@
 /**
  * AND2BLE French Kissing 신청 폼 → Google 시트 저장용 Apps Script
  *
- * 저장 위치: 아래 SPREADSHEET_ID 시트
- *   - 기본 모집 페이지(ja.html / ko.html)        → gid=1002 탭
- *   - TikTok / Instagram 모집 페이지(ja-tt, ko-tt, ja-ig, ko-ig) → '틱톡/인스타 개별모집' 탭 (gid=179908666)
- *     두 플랫폼이 한 탭에 같이 쌓이고, '참여 방식' 칸으로 구분한다.
- *     탭이 비어 있으면 첫 신청 때 제목 행이 자동으로 들어간다.
+ * 저장 위치: 아래 SPREADSHEET_ID 시트의 '응답이 들어오는 것을 보는 탭' (gid=1002)
+ *   - 기본 모집 페이지(ja.html / ko.html)와 TikTok / Instagram 모집 페이지(ja-tt, ko-tt, ja-ig, ko-ig)
+ *     신청이 모두 이 한 탭에 들어온다.
+ *   - A~J열: 신청 내용 (기존과 같음). K열 '선정여부' 등 직접 쓰는 칸은 건드리지 않는다.
+ *   - 어느 페이지에서 신청했는지는 '신청 페이지' 제목이 붙은 칸에 기본 / TikTok / Instagram 으로 남긴다.
+ *     그 칸이 없으면 제목 줄의 맨 오른쪽 빈 칸에 '신청 페이지' 제목을 만들어 쓴다.
  * (https://docs.google.com/spreadsheets/d/1T1i3U-lNK0yE0dv0L_adKKv5OOw5NY-BT8PGSDDyWYU/edit?gid=1002)
  *
  * 기존 Apps Script 를 그대로 쓰는 경우 (웹 앱 주소가 바뀌지 않음)
  * 1. 기존 Apps Script 편집기에서 내용을 이 코드로 통째로 바꾸고 저장한다.
  * 2. [배포] → [배포 관리] → 연필(수정) → 버전: [새 버전] → [배포]
- *    → 다른 시트에 접근하는 권한을 새로 묻으면 허용한다.
  */
 
 var SPREADSHEET_ID = '1T1i3U-lNK0yE0dv0L_adKKv5OOw5NY-BT8PGSDDyWYU';
-var SHEET_GID = 1002;           // 기본 모집 페이지 신청이 들어올 탭 (주소의 gid 값)
-var PLATFORM_SHEET_GID = 179908666; // TikTok / Instagram 전용 모집 페이지 신청이 함께 들어올 탭 ('틱톡/인스타 개별모집')
+var SHEET_GID = 1002; // 모든 신청이 들어올 탭 (주소의 gid 값)
 var HEADERS = ['제출 시각', '언어', '이름', '이메일', '연락처', '참여 방식', 'TikTok', 'Instagram', '업로드 예정일', '기프트카드'];
+var SOURCE_HEADER = '신청 페이지';
+var SOURCE_LABEL = { main: '기본', tt: 'TikTok', ig: 'Instagram' };
 
-// 탭은 gid 로 찾기 때문에 탭 이름을 바꿔도 계속 같은 탭에 들어간다.
-function getTargetSheet_(source) {
-  var gid = (source === 'tt' || source === 'ig') ? PLATFORM_SHEET_GID : SHEET_GID;
+// 탭은 gid 로 찾으므로 탭 이름을 바꿔도 된다.
+function getTargetSheet_() {
   var sheets = SpreadsheetApp.openById(SPREADSHEET_ID).getSheets();
   for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i].getSheetId() === gid) return sheets[i];
+    if (sheets[i].getSheetId() === SHEET_GID) return sheets[i];
   }
-  throw new Error('gid ' + gid + ' 탭을 찾을 수 없습니다.');
+  throw new Error('gid ' + SHEET_GID + ' 탭을 찾을 수 없습니다.');
+}
+
+// '신청 페이지' 칸의 열 번호. 없으면 제목 줄 맨 오른쪽 다음 칸에 만든다.
+function sourceColumn_(sh) {
+  var lastCol = Math.max(sh.getLastColumn(), HEADERS.length);
+  var head = sh.getRange(1, 1, 1, lastCol).getValues()[0];
+  for (var i = 0; i < head.length; i++) {
+    if (String(head[i]).trim() === SOURCE_HEADER) return i + 1;
+  }
+  var col = lastCol + 1;
+  sh.getRange(1, col).setValue(SOURCE_HEADER);
+  return col;
 }
 
 function doPost(e) {
@@ -34,12 +46,15 @@ function doPost(e) {
   lock.waitLock(10000);
   try {
     var d = JSON.parse(e.postData.contents);
-    var sh = getTargetSheet_(d.source);
+    var sh = getTargetSheet_();
     if (sh.getLastRow() === 0) {
-      sh.appendRow(HEADERS);
+      sh.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
       sh.setFrozenRows(1);
     }
-    sh.appendRow([
+    var srcCol = sourceColumn_(sh);
+    var row = sh.getLastRow() + 1;
+    // A~J열만 채운다. (선정여부 등 다른 칸은 그대로 둔다)
+    sh.getRange(row, 1, 1, HEADERS.length).setValues([[
       // 스크립트 시간대 설정과 상관없이 항상 한국 시간으로 기록한다.
       Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss'),
       safe(d.lang),
@@ -51,7 +66,8 @@ function doPost(e) {
       safe(d.instagram),
       safe(d.postDate),
       safe(d.giftCard)
-    ]);
+    ]]);
+    sh.getRange(row, srcCol).setValue(SOURCE_LABEL[d.source] || '기본');
     return json({ ok: true });
   } catch (err) {
     return json({ ok: false, error: String(err) });
@@ -62,35 +78,8 @@ function doPost(e) {
 
 // 편집기에서 한 번 실행해 보면 권한 허용 + 탭 연결을 미리 확인할 수 있다.
 function testTarget() {
-  Logger.log('기본 탭: ' + getTargetSheet_().getName());
-  Logger.log('TikTok / Instagram 탭: ' + getTargetSheet_('tt').getName());
-}
-
-// [한 번만 실행] 2~24행(11/5 오후 6시 이전에 들어온 23건)의 제출 시각이 9시간 앞서 있어서,
-// 화면에 보이는 시각에서 정확히 9시간을 뺀다. 시간대 설정에 기대지 않고 글자 그대로 계산한다.
-function fixTimesMinus9() {
-  var props = PropertiesService.getScriptProperties();
-  if (props.getProperty('KST_FIXED_2') === 'yes') { Logger.log('이미 고쳤어요. 다시 실행하지 않아요.'); return; }
-  var FIRST = 2, LAST = 24;
   var sh = getTargetSheet_();
-  if (String(sh.getRange(LAST, 3).getValue()).indexOf('すーの') === -1) {
-    Logger.log('24행이 すーの 가 아니라서 멈췄어요. 행이 바뀌었으면 알려주세요.'); return;
-  }
-  var range = sh.getRange(FIRST, 1, LAST - FIRST + 1, 1);
-  var shown = range.getDisplayValues();
-  var out = [], bad = [];
-  for (var i = 0; i < shown.length; i++) {
-    var m = String(shown[i][0]).match(/(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\.?\s*(오전|오후)\s*(\d{1,2}):(\d{2}):(\d{2})/);
-    if (!m) { bad.push(FIRST + i); out.push([shown[i][0]]); continue; }
-    var h = +m[5] % 12 + (m[4] === '오후' ? 12 : 0);
-    var t = Date.UTC(+m[1], +m[2] - 1, +m[3], h, +m[6], +m[7]) - 9 * 3600 * 1000;
-    var d = new Date(t), p = function (x) { return ('0' + x).slice(-2); };
-    out.push([d.getUTCFullYear() + '-' + p(d.getUTCMonth() + 1) + '-' + p(d.getUTCDate()) + ' ' + p(d.getUTCHours()) + ':' + p(d.getUTCMinutes()) + ':' + p(d.getUTCSeconds())]);
-  }
-  if (bad.length) { Logger.log('읽지 못한 행: ' + bad.join(', ') + ' → 아무것도 바꾸지 않았어요.'); return; }
-  range.setValues(out);
-  props.setProperty('KST_FIXED_2', 'yes');
-  Logger.log(out.length + '건을 9시간 앞당겼어요. 첫 줄: ' + out[0][0] + ' / 마지막 줄: ' + out[out.length - 1][0]);
+  Logger.log('모든 신청이 들어갈 탭: ' + sh.getName() + ' / 신청 페이지 칸: ' + sourceColumn_(sh) + '열');
 }
 
 // 수식으로 해석될 수 있는 값(=, +, -, @ 로 시작)은 텍스트로 저장한다.
